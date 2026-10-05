@@ -4,62 +4,67 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="color-scheme" content="light">
-<title>Jedálniček – 2300 kcal / 200 g bielkovín (Týždeň A / B)</title>
+<title>Jedálniček – celkové kcal, makrá, nákupný zoznam</title>
 <style>
 :root{
-  --bg:#eef1f5; --card:#ffffff; --ink:#131c26; --muted:#5c6b7a; --line:#e2e8f0;
+  --bg:#eef1f5; --card:#fff; --ink:#131c26; --muted:#5c6b7a; --line:#e2e8f0;
   --kcal:#2563eb; --p:#e11d48; --c:#f59e0b; --f:#8b5cf6; --fib:#16a34a; --ok:#16a34a; --warn:#ea580c;
   --radius:16px; --shadow:0 1px 2px rgba(16,24,40,.06),0 8px 24px rgba(16,24,40,.06);
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
-body{
-  background:var(--bg); color:var(--ink); overflow-x:hidden;
-  font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
-  -webkit-text-size-adjust:100%;
-}
+body{background:var(--bg);color:var(--ink);overflow-x:hidden;
+  font:16px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-text-size-adjust:100%}
 .wrap{max-width:760px;margin:0 auto;padding:14px 12px 64px}
-h1{font-size:1.5rem;margin:8px 0 4px;line-height:1.2}
+h1{font-size:1.45rem;margin:8px 0 4px;line-height:1.2}
 h2{font-size:1.15rem;margin:0 0 8px}
-h3{font-size:1.06rem;margin:0 0 2px;line-height:1.25}
+h3{font-size:1.05rem;margin:0 0 2px;line-height:1.25}
 h4{font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin:14px 0 6px}
 p{margin:6px 0}
 small,.sub{color:var(--muted);font-size:.85rem}
 .card{background:var(--card);border-radius:var(--radius);box-shadow:var(--shadow);padding:14px;margin:12px 0}
 .hero{background:linear-gradient(135deg,#1e3a8a,#2563eb);color:#fff;border-radius:var(--radius);padding:16px;margin:8px 0 12px;box-shadow:var(--shadow)}
-.hero h1{color:#fff}
-.hero p{color:#dbe6ff;font-size:.9rem;margin:4px 0 0}
+.hero h1{color:#fff}.hero p{color:#dbe6ff;font-size:.9rem;margin:4px 0 0}
 .hero .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
 .hero .chip{background:rgba(255,255,255,.16);border-radius:999px;padding:4px 10px;font-size:.78rem}
-.goal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
-@media(min-width:560px){.goal-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
-.goal{display:flex;flex-direction:column;gap:4px;min-width:0}
-.goal label{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
-.goal input{font-size:17px;padding:9px 10px;border:1px solid var(--line);border-radius:12px;background:#f8fafc;text-align:center;font-weight:700;width:100%;min-width:0;box-sizing:border-box}
+/* ciele */
+.kcalrow{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-end}
+.kcalbox{flex:1 1 200px;min-width:0}
+.kcalbox label,.goal label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600;margin-bottom:4px}
+input.big{width:100%;min-width:0;font-size:2rem;font-weight:800;padding:6px 10px;border:2px solid var(--kcal);border-radius:14px;color:var(--kcal);text-align:center;background:#f5f8ff}
+.goal-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+@media(min-width:560px){.goal-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.goal{min-width:0}.goal label{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
+.goal input{width:100%;min-width:0;font-size:17px;padding:9px 10px;border:1px solid var(--line);border-radius:12px;background:#f8fafc;text-align:center;font-weight:700}
+.switch{display:flex;align-items:center;gap:8px;font-size:.85rem;color:var(--muted);margin-top:10px}
+.switch input{width:22px;height:22px;flex:0 0 22px}
 .btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
-button{font:inherit;font-weight:600;border:0;border-radius:12px;padding:13px 14px;background:var(--kcal);color:#fff;min-height:48px;flex:1 1 46%;cursor:pointer}
+button{font:inherit;font-weight:700;border:0;border-radius:12px;padding:14px;background:var(--kcal);color:#fff;min-height:50px;flex:1 1 46%;cursor:pointer}
 button.ghost{background:#eef2f7;color:var(--ink);border:1px solid var(--line)}
-button.danger{background:#fee2e2;color:#b91c1c;border:1px solid #fecaca}
+button.small{font-weight:600;font-size:.85rem;min-height:42px;padding:10px 12px;flex:0 0 auto}
 button:active{transform:scale(.99)}
 #msg{font-size:.85rem;margin-top:10px;color:var(--muted);min-height:1.2em}
 #msg.ok{color:var(--ok);font-weight:600}
 #msg.warn{color:var(--warn);font-weight:600}
+.rule{background:#f1f5f9;border:1px solid var(--line);border-radius:12px;padding:10px;font-size:.8rem;color:var(--muted);margin-top:10px}
+.rule b{color:var(--ink)}
+/* sucet */
 .summary{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);border:1px solid var(--line)}
-.summary .top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between}
-.summary select{font:inherit;font-size:14px;padding:8px 10px;border-radius:10px;border:1px solid var(--line);background:#f8fafc;max-width:100%}
-.bignums{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;margin:10px 0 6px;text-align:center}
-.bn{min-width:0}.bn b{display:block;font-size:1.05rem;line-height:1.1}
-@media(min-width:520px){.bn b{font-size:1.45rem}}
-.bn span{font-size:.66rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
-.bignums .k b{color:var(--kcal)} .bignums .p b{color:var(--p)} .bignums .c b{color:var(--c)}
-.bignums .f b{color:var(--f)} .bignums .fb b{color:var(--fib)}
+.bignums{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;text-align:center}
+.bn{min-width:0}
+.bn b{display:block;font-size:1.05rem;line-height:1.1}
+@media(min-width:520px){.bn b{font-size:1.5rem}}
+.bn span{font-size:.64rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.bignums .k b{color:var(--kcal)}.bignums .p b{color:var(--p)}.bignums .c b{color:var(--c)}
+.bignums .f b{color:var(--f)}.bignums .fb b{color:var(--fib)}
 .bars{margin-top:8px}
-.bar{display:grid;grid-template-columns:74px 1fr auto;gap:8px;align-items:center;margin:4px 0;font-size:.75rem;color:var(--muted)}
+.bar{display:grid;grid-template-columns:72px 1fr auto;gap:8px;align-items:center;margin:4px 0;font-size:.74rem;color:var(--muted)}
 .track{height:8px;background:#e8edf3;border-radius:999px;overflow:hidden}
 .track i{display:block;height:100%;width:0;border-radius:999px;transition:width .18s ease}
-i.t-kcal{background:var(--kcal)} i.t-p{background:var(--p)} i.t-c{background:var(--c)} i.t-f{background:var(--f)} i.t-fib{background:var(--fib)}
+i.t-kcal{background:var(--kcal)}i.t-p{background:var(--p)}i.t-c{background:var(--c)}i.t-f{background:var(--f)}i.t-fib{background:var(--fib)}
 .bar em{font-style:normal;font-size:.72rem;white-space:nowrap}
-.bar em.neg{color:var(--warn)} .bar em.pos{color:var(--ok)}
+.bar em.neg{color:var(--warn)}.bar em.pos{color:var(--ok)}
+/* jedla */
 .meal{margin:14px 0}
 .mhead{border-left:4px solid var(--kcal);padding-left:10px}
 .meal .msub{font-size:.8rem;color:var(--muted)}
@@ -76,20 +81,33 @@ input[type=range]::-moz-range-track{height:8px;border-radius:999px;background:#d
 input[type=range]::-moz-range-thumb{width:24px;height:24px;border:3px solid #fff;border-radius:50%;background:var(--kcal)}
 input[type=number]{min-width:0;font-size:17px;font-weight:700;text-align:center;padding:9px 6px;border:1px solid var(--line);border-radius:10px;background:#fff}
 .food input[type=number]{max-width:84px;width:84px;flex:0 0 84px}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
 .fm{font-size:.8rem;color:var(--muted)}
 .note{font-size:.74rem;color:#9a3412;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:5px 8px;margin-top:6px}
 .mtot{margin-top:12px;background:#eef4ff;border:1px solid #c7dcff;border-radius:12px;padding:10px;font-size:.9rem}
 .mtot b{font-size:1.05rem;color:var(--kcal)}
 .steps{margin:6px 0 0;padding-left:20px}
 .steps li{margin:4px 0;font-size:.92rem}
-.tw{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:12px;border:1px solid var(--line);margin-top:10px}
-table{border-collapse:collapse;width:100%;font-size:.82rem;background:#fff;min-width:420px}
-th,td{padding:8px 6px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+/* tyzden + nakup */
+.daysrow{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:10px}
+.daysrow input{width:80px;flex:0 0 80px}
+.bigweek{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px;text-align:center;margin:8px 0}
+.bigweek div{min-width:0}
+.bigweek b{display:block;font-size:1.05rem}
+.bigweek span{font-size:.64rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+table{border-collapse:collapse;width:100%;font-size:.86rem;background:#fff}
+th,td{padding:9px 6px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
 th:first-child,td:first-child{text-align:left;white-space:normal}
 thead th{background:#f1f5f9;font-size:.72rem;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
-tbody th{font-weight:600}
-tr.wktot td,tr.wktot th{background:#eef4ff;font-weight:700;border-bottom:0}
-.dbwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+tr.grp td{background:#eef4ff;font-weight:700;font-size:.74rem;text-transform:uppercase;letter-spacing:.05em;color:#1e3a8a}
+td.qty{font-weight:700}
+td.dose{color:var(--muted);font-size:.78rem}
+tr.done .sname{text-decoration:line-through;color:var(--muted)}
+tr.done{opacity:.6}
+input.chk{width:22px;height:22px;flex:0 0 22px;margin-right:8px}
+.shopname{display:flex;align-items:center}
+.dbwrap,.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.db{min-width:520px}
 .db input{max-width:64px;width:64px;flex:0 0 64px;padding:6px 4px;font-size:15px}
 details{margin-top:10px}
 summary{cursor:pointer;font-weight:600;padding:10px 0}
@@ -101,46 +119,41 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
 <div class="wrap">
 
   <header class="hero">
-    <h1>Jedálniček A / B – cesta na 85 kg, atletická postava</h1>
-    <p>Muž 36 r., 188 cm, ~110 kg → cieľ ~85 kg. Zachovať svaly, vysoký proteín, zdravé tuky, vláknina. Minimum varenia: 2× týždenne.</p>
-    <div class="chips"><span class="chip">~2300 kcal</span><span class="chip">200 g P</span><span class="chip">220 g C</span><span class="chip">75 g F</span><span class="chip">35 g vlákniny</span><span class="chip">offline · jeden súbor</span></div>
+    <h1>Jedálniček – jeden deň, 4 jedlá, každý deň rovnaké</h1>
+    <p>Muž 36 r., 188 cm, ~110 kg → cieľ ~85 kg, atletická postava. 4 jedlá denne, tie isté 7 dní v týždni, varenie 2× týždenne.</p>
+    <div class="chips"><span class="chip">denný cieľ 2300 kcal</span><span class="chip">196 g P</span><span class="chip">206 g C</span><span class="chip">77 g F</span><span class="chip">35 g vlákniny</span><span class="chip">offline · jeden súbor</span></div>
   </header>
 
   <section class="card">
-    <h2>Denný kalorický cieľ a makrá</h2>
+    <h2>Celkový denný príjem</h2>
+    <div class="kcalrow">
+      <div class="kcalbox"><label for="tKcal">Celkové kalórie na deň (kcal)</label>
+        <input class="big" id="tKcal" type="number" inputmode="numeric" step="25" min="1200" max="6000" value="2300"></div>
+    </div>
     <div class="goal-grid">
-      <div class="goal"><label for="tKcal">Kalórie (kcal)</label><input id="tKcal" type="number" inputmode="numeric" step="10" min="1000" max="6000" value="2300"></div>
-      <div class="goal"><label for="tP">Bielkoviny (g)</label><input id="tP" type="number" inputmode="numeric" step="5" min="50" max="400" value="200"></div>
-      <div class="goal"><label for="tC">Sacharidy (g)</label><input id="tC" type="number" inputmode="numeric" step="5" min="0" max="600" value="220"></div>
-      <div class="goal"><label for="tF">Tuky (g)</label><input id="tF" type="number" inputmode="numeric" step="5" min="0" max="250" value="75"></div>
+      <div class="goal"><label for="tP">Bielkoviny (g)</label><input id="tP" type="number" inputmode="numeric" step="5" min="50" max="400" value="196"></div>
+      <div class="goal"><label for="tC">Sacharidy (g)</label><input id="tC" type="number" inputmode="numeric" step="5" min="0" max="600" value="206"></div>
+      <div class="goal"><label for="tF">Tuky (g)</label><input id="tF" type="number" inputmode="numeric" step="5" min="0" max="250" value="77"></div>
       <div class="goal"><label for="tFib">Vláknina (g)</label><input id="tFib" type="number" inputmode="numeric" step="5" min="0" max="100" value="35"></div>
     </div>
+    <label class="switch"><input type="checkbox" id="autoMacro" checked> Pri zmene kalórií prepočítať makrá automaticky podľa noriem</label>
+    <div class="rule" id="stdNote"></div>
     <div class="btns">
-      <button id="btnAdapt">PRISPÔSOBIŤ PORCIE</button>
+      <button id="btnAdapt">PRISPÔSOBIŤ PORCIE JEDÁL</button>
+      <button id="btnStd" class="ghost">Prepočítať makrá podľa noriem</button>
       <button id="btnReset" class="ghost">Resetovať na základný plán</button>
-      <button id="btnCopy" class="ghost">Kopírovať nastavenie</button>
-      <button id="btnExport" class="ghost">Export JSON</button>
-      <button id="btnShare" class="ghost">Vytvoriť shareable URL</button>
     </div>
     <div id="msg"></div>
-    <details>
-      <summary>Skopírované / exportované nastavenie (JSON)</summary>
-      <textarea id="shareBox" readonly placeholder="Sem sa zapíše JSON po kliknutí na „Kopírovať nastavenie“ alebo „Export JSON“."></textarea>
-    </details>
-    <p class="sub">„Prispôsobiť porcie“ mení reálne gramáže: najprv sacharidové prílohy (ryža, zemiaky, ovos, pizza cesto), potom zdravé tuky (EVOO, orechy, semienka). Bielkoviny, zelenina a fermentované potraviny zostávajú stabilné.</p>
   </section>
 
   <section class="card summary" id="summary">
-    <div class="top">
-      <h2 style="margin:0">DENNÝ SÚČET</h2>
-      <select id="daySelect"><option value="A-0">Týždeň A · Po/Št – hovädzie s ryžou</option><option value="A-1">Týždeň A · Ut/Pi – losos so zemiakmi</option><option value="A-2">Týždeň A · St/So – sardinky so zemiakmi</option><option value="B-0">Týždeň B · Po/Št – tuniak s ryžou</option><option value="B-1">Týždeň B · Ut/Pi – biele ryby so zemiakmi</option><option value="B-2">Týždeň B · St/So – morčacie s ryžou</option><option value="A-6">Nedeľa – pizza deň (platí pre A aj B)</option></select>
-    </div>
+    <h2 style="margin:0 0 8px">DENNÝ SÚČET – 4 jedlá, každý deň rovnaké</h2>
     <div class="bignums">
-      <div class="bn k"><b data-out="kcal">2331</b><span>kcal</span></div>
-      <div class="bn p"><b data-out="p">200</b><span>g P</span></div>
-      <div class="bn c"><b data-out="c">219</b><span>g C</span></div>
-      <div class="bn f"><b data-out="f">74</b><span>g F</span></div>
-      <div class="bn fb"><b data-out="fib">36</b><span>g vlákniny</span></div>
+      <div class="bn k"><b data-out="kcal">2318</b><span>kcal</span></div>
+      <div class="bn p"><b data-out="p">192</b><span>g P</span></div>
+      <div class="bn c"><b data-out="c">216</b><span>g C</span></div>
+      <div class="bn f"><b data-out="f">78</b><span>g F</span></div>
+      <div class="bn fb"><b data-out="fib">42</b><span>g vlákniny</span></div>
     </div>
     <div class="bars">
       <div class="bar"><span>Kalórie</span><div class="track"><i class="t-kcal" data-bar="kcal"></i></div><em data-diff="kcal"></em></div>
@@ -151,15 +164,14 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
     </div>
   </section>
 
-  <section id="weekA">
+  <section id="week">
     <div class="card" style="background:linear-gradient(135deg,#0f172a,#334155);color:#fff">
-      <h2 style="color:#fff;margin:0">TÝŽDEŇ A</h2>
-      <p class="sub" style="color:#cbd5e1;margin:4px 0 0">Rotácia: A → B → A → B… Raňajky, obed a snack sú v rámci týždňa rovnaké, večera rotuje v 3 variantoch.</p>
-      <p class="sub">Varenie: <b>nedeľa</b> – jedlá A pokrývajú <b>pondelok až stredu</b>. <b>streda</b> – uvar znovu tie isté jedlá A na <b>štvrtok až sobotu</b>. Nedeľná pizza je v sekcii nižšie.</p>
+      <h2 style="color:#fff;margin:0">JEDÁ / TÝŽDEŇ – 4 jedlá, každý deň rovnaké</h2>
+      <p class="sub" style="color:#cbd5e1;margin:4px 0 0">Raňajky → Obed → Snack → Večera. Gramáže nižšie meníš sliderom alebo prepísaním čísla; denný súčet hore a nákupný zoznam dole sa prepočítajú okamžite.</p>
     </div>
-    <article class="card meal" data-mk="a-break" id="mk-a-break">
-      <div class="mhead"><h3>Raňajky A – Skyr, ovos a lesné ovocie</h3><div class="msub">TÝŽDEŇ A · raňajky na 3 dni dopredu (nedeľa a streda)</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
+    <article class="card meal" data-mk="break" id="mk-break">
+      <div class="mhead"><h3>1. Raňajky</h3><div class="msub">Skyr, ovos, lesné ovocie, vajcia – priprav na 3 dni dopredu</div></div>
+      <h4>Potraviny – gramáže a makrá (živé)</h4>
       <div class="foods">
       <div class="food" data-fk="skyr" data-cat="protein" data-name="Skyr (prírodný, 0,2 %)" data-kcal="63" data-p="11.0" data-c="4.0" data-f="0.2" data-fib="0.0" data-base="250">
         <div class="frow"><span class="fname">Skyr (prírodný, 0,2 %)</span><span class="fval">250 g</span></div>
@@ -167,10 +179,10 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
         <div class="fm">158 kcal · 27.5 g P · 10.0 g C · 0.5 g F</div>
         <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
       </div>
-      <div class="food" data-fk="oats" data-cat="carb" data-name="Ovos (suché vločky)" data-kcal="380" data-p="13.0" data-c="60.0" data-f="7.0" data-fib="10.0" data-base="40">
-        <div class="frow"><span class="fname">Ovos (suché vločky)</span><span class="fval">40 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="200" step="1" value="40" aria-label="Ovos (suché vločky) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="40" aria-label="Ovos (suché vločky) – gramy"></div>
-        <div class="fm">152 kcal · 5.2 g P · 24.0 g C · 2.8 g F</div>
+      <div class="food" data-fk="oats" data-cat="carb" data-name="Ovos (suché vločky)" data-kcal="380" data-p="13.0" data-c="60.0" data-f="7.0" data-fib="10.0" data-base="35">
+        <div class="frow"><span class="fname">Ovos (suché vločky)</span><span class="fval">35 g</span></div>
+        <div class="ctl"><input class="rg" type="range" min="0" max="200" step="1" value="35" aria-label="Ovos (suché vločky) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="35" aria-label="Ovos (suché vločky) – gramy"></div>
+        <div class="fm">133 kcal · 4.5 g P · 21.0 g C · 2.4 g F</div>
         
       </div>
       <div class="food" data-fk="berries" data-cat="other" data-name="Lesné ovocie (čučoriedky/maliny)" data-kcal="50" data-p="0.7" data-c="12.0" data-f="0.3" data-fib="3.0" data-base="150">
@@ -191,27 +203,26 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
         <div class="fm">49 kcal · 1.7 g P · 4.2 g C · 3.1 g F</div>
         
       </div>
-      <div class="food" data-fk="eggs" data-cat="protein" data-name="Vajcia (celé)" data-kcal="143" data-p="12.5" data-c="0.7" data-f="9.5" data-fib="0.0" data-base="100">
-        <div class="frow"><span class="fname">Vajcia (celé)</span><span class="fval">100 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="300" step="1" value="100" aria-label="Vajcia (celé) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="100" aria-label="Vajcia (celé) – gramy"></div>
-        <div class="fm">143 kcal · 12.5 g P · 0.7 g C · 9.5 g F</div>
+      <div class="food" data-fk="eggs" data-cat="protein" data-name="Vajcia (celé)" data-kcal="143" data-p="12.5" data-c="0.7" data-f="9.5" data-fib="0.0" data-base="110">
+        <div class="frow"><span class="fname">Vajcia (celé)</span><span class="fval">110 g</span></div>
+        <div class="ctl"><input class="rg" type="range" min="0" max="300" step="1" value="110" aria-label="Vajcia (celé) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="110" aria-label="Vajcia (celé) – gramy"></div>
+        <div class="fm">157 kcal · 13.8 g P · 0.8 g C · 10.5 g F</div>
         
       </div>
       </div>
-      <div class="mtot" data-tot="a-break"><b>642 kcal</b> · 49 g P · 58 g C · 23 g F · 13 g vlákniny</div>
+      <div class="mtot" data-tot="break"><b>637 kcal</b> · 50 g P · 55 g C · 23 g F · 12 g vlákniny</div>
       <h4>Postup</h4>
       <ol class="steps">
-        <li>Skyr vymiešaj s trochou vody alebo mlieka na hladký krém.</li>
+        <li>Skyr vymiešaj s trochou vody na hladký krém, primiešaj chia a lesné ovocie.</li>
         <li>Ovos nechaj cez noc namočený (overnight oats) alebo 2 min v mikrovlnke.</li>
-        <li>Primiešaj chia semienka a lesné ovocie.</li>
         <li>2 vajcia uvar natvrdo alebo priprav ako omeletu na sucho.</li>
         <li>Navrch nasyp vlašské orechy.</li>
         <li>Priprav 3 porcie naraz do sklenených nádob – spotrebuj do 3 dní.</li>
       </ol>
     </article>
-    <article class="card meal" data-mk="a-lunch" id="mk-a-lunch">
-      <div class="mhead"><h3>Obed A – Morčacie prsia so zemiakmi a zeleninou</h3><div class="msub">TÝŽDEŇ A · obed na 3 dni (nedeľa → pondelok až streda)</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
+    <article class="card meal" data-mk="lunch" id="mk-lunch">
+      <div class="mhead"><h3>2. Obed</h3><div class="msub">Morčacie prsia so zemiakmi a zeleninou – na 3 dni dopredu</div></div>
+      <h4>Potraviny – gramáže a makrá (živé)</h4>
       <div class="foods">
       <div class="food" data-fk="turkey" data-cat="protein" data-name="Morčacie prsia" data-kcal="157" data-p="30.0" data-c="0.0" data-f="3.5" data-fib="0.0" data-base="200">
         <div class="frow"><span class="fname">Morčacie prsia</span><span class="fval">200 g</span></div>
@@ -250,20 +261,20 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
         
       </div>
       </div>
-      <div class="mtot" data-tot="a-lunch"><b>731 kcal</b> · 72 g P · 71 g C · 18 g F · 15 g vlákniny</div>
+      <div class="mtot" data-tot="lunch"><b>731 kcal</b> · 72 g P · 71 g C · 18 g F · 15 g vlákniny</div>
       <h4>Postup</h4>
       <ol class="steps">
         <li>Zemiaky nakrájaj na štvrtky, osoľ a upeč pri 200 °C cca 30 min.</li>
         <li>Morčacie prsia ochuť (soľ, čierne korenie, rasca) a upeč/opeč na panvici.</li>
-        <li>Brokolicu a papriku priprav na pare alebo krátko opeč (aby zostali chrumkavé).</li>
+        <li>Brokolicu a papriku priprav na pare alebo krátko opeč, aby zostali chrumkavé.</li>
         <li>Kyslú kapustu pridaj až pri servírovaní – tepelná úprava ničí živé kultúry.</li>
         <li>EVOO odváž a pridaj na hotové jedlo, nie do panvice.</li>
         <li>Naplň 3 sklenené nádoby – mäso dolu, zemiaky a zelenina navrch, kapusta zvlášť.</li>
       </ol>
     </article>
-    <article class="card meal" data-mk="a-snack" id="mk-a-snack">
-      <div class="mhead"><h3>Snack A – Skyr, kefír a ovocie</h3><div class="msub">TÝŽDEŇ A · snack (kedykoľvek počas dňa)</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
+    <article class="card meal" data-mk="snack" id="mk-snack">
+      <div class="mhead"><h3>3. Snack</h3><div class="msub">Skyr, kefír, ovocie a mandle</div></div>
+      <h4>Potraviny – gramáže a makrá (živé)</h4>
       <div class="foods">
       <div class="food" data-fk="skyr" data-cat="protein" data-name="Skyr (prírodný, 0,2 %)" data-kcal="63" data-p="11.0" data-c="4.0" data-f="0.2" data-fib="0.0" data-base="200">
         <div class="frow"><span class="fname">Skyr (prírodný, 0,2 %)</span><span class="fval">200 g</span></div>
@@ -290,55 +301,17 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
         
       </div>
       </div>
-      <div class="mtot" data-tot="a-snack"><b>393 kcal</b> · 32 g P · 41 g C · 12 g F · 5 g vlákniny</div>
+      <div class="mtot" data-tot="snack"><b>393 kcal</b> · 32 g P · 41 g C · 12 g F · 5 g vlákniny</div>
       <h4>Postup</h4>
       <ol class="steps">
         <li>Skyr a kefír daj do samostatnej nádoby, ovocie krájaj až na mieste.</li>
-        <li>Mandľe odváž presne – 15 g je hrsť, viac už výrazne zvyšuje tuky.</li>
+        <li>Mandle odváž presne – 15 g je hrsť, viac výrazne zvyšuje tuky.</li>
         <li>Ak potrebuješ jedlo po tréningu, daj snack práve sem.</li>
       </ol>
     </article>
-    <article class="card meal" data-mk="a-din1" id="mk-a-din1">
-      <div class="mhead"><h3>Večera A1 – Chudé hovädzie s ryžou a zeleninou</h3><div class="msub">TÝŽDEŇ A · rotácia večerí 1</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="beef" data-cat="protein" data-name="Chudé hovädzie (roštenka / steak)" data-kcal="180" data-p="27.0" data-c="0.0" data-f="8.0" data-fib="0.0" data-base="150">
-        <div class="frow"><span class="fname">Chudé hovädzie (roštenka / steak)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="150" aria-label="Chudé hovädzie (roštenka / steak) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Chudé hovädzie (roštenka / steak) – gramy"></div>
-        <div class="fm">270 kcal · 40.5 g P · 0.0 g C · 12.0 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="rice" data-cat="carb" data-name="Ryža (uvarená)" data-kcal="130" data-p="2.7" data-c="28.0" data-f="0.3" data-fib="0.4" data-base="150">
-        <div class="frow"><span class="fname">Ryža (uvarená)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="700" step="1" value="150" aria-label="Ryža (uvarená) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Ryža (uvarená) – gramy"></div>
-        <div class="fm">195 kcal · 4.1 g P · 42.0 g C · 0.4 g F</div>
-        <div class="note">Uvarená hmotnosť (100 g surovej ryže ≈ 280 g uvarenej).</div>
-      </div>
-      <div class="food" data-fk="vegmix" data-cat="veg" data-name="Zeleninová zmes (cuketa, paprika, paradajka, listová)" data-kcal="20" data-p="1.0" data-c="4.0" data-f="0.2" data-fib="1.5" data-base="150">
-        <div class="frow"><span class="fname">Zeleninová zmes (cuketa, paprika, paradajka, listová)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="150" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramy"></div>
-        <div class="fm">30 kcal · 1.5 g P · 6.0 g C · 0.3 g F</div>
-        
-      </div>
-      <div class="food" data-fk="evoo" data-cat="fat" data-name="Extra panenský olivový olej (EVOO)" data-kcal="884" data-p="0.0" data-c="0.0" data-f="100.0" data-fib="0.0" data-base="8">
-        <div class="frow"><span class="fname">Extra panenský olivový olej (EVOO)</span><span class="fval">8 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="60" step="1" value="8" aria-label="Extra panenský olivový olej (EVOO) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="8" aria-label="Extra panenský olivový olej (EVOO) – gramy"></div>
-        <div class="fm">71 kcal · 0.0 g P · 0.0 g C · 8.0 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="a-din1"><b>566 kcal</b> · 46 g P · 48 g C · 21 g F · 3 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Ryžu uvar (IDEÁLNE vopred, drží 3 dni v chladničke).</li>
-        <li>Hovädzie osuš, osoľ, opeč z každej strany – nechaj 3–4 min odpočívať pred krájaním.</li>
-        <li>Zeleninovú zmes opeč na sucho alebo krátko na pare.</li>
-        <li>EVOO odváž a pridaj na hotové jedlo.</li>
-      </ol>
-    </article>
-    <article class="card meal" data-mk="a-din2" id="mk-a-din2">
-      <div class="mhead"><h3>Večera A2 – Losos so zemiakmi a brokolicou</h3><div class="msub">TÝŽDEŇ A · rotácia večerí 2</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
+    <article class="card meal" data-mk="dinner" id="mk-dinner">
+      <div class="mhead"><h3>4. Večera</h3><div class="msub">Losos so zemiakmi a brokolicou – najjednoduchšia na prípravu</div></div>
+      <h4>Potraviny – gramáže a makrá (živé)</h4>
       <div class="foods">
       <div class="food" data-fk="salmon" data-cat="protein" data-name="Losos" data-kcal="208" data-p="20.0" data-c="0.0" data-f="13.0" data-fib="0.0" data-base="140">
         <div class="frow"><span class="fname">Losos</span><span class="fval">140 g</span></div>
@@ -346,10 +319,10 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
         <div class="fm">291 kcal · 28.0 g P · 0.0 g C · 18.2 g F</div>
         
       </div>
-      <div class="food" data-fk="potatoes" data-cat="carb" data-name="Zemiaky" data-kcal="77" data-p="2.0" data-c="17.0" data-f="0.1" data-fib="2.2" data-base="250">
-        <div class="frow"><span class="fname">Zemiaky</span><span class="fval">250 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="800" step="1" value="250" aria-label="Zemiaky – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="250" aria-label="Zemiaky – gramy"></div>
-        <div class="fm">192 kcal · 5.0 g P · 42.5 g C · 0.2 g F</div>
+      <div class="food" data-fk="potatoes" data-cat="carb" data-name="Zemiaky" data-kcal="77" data-p="2.0" data-c="17.0" data-f="0.1" data-fib="2.2" data-base="200">
+        <div class="frow"><span class="fname">Zemiaky</span><span class="fval">200 g</span></div>
+        <div class="ctl"><input class="rg" type="range" min="0" max="800" step="1" value="200" aria-label="Zemiaky – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="200" aria-label="Zemiaky – gramy"></div>
+        <div class="fm">154 kcal · 4.0 g P · 34.0 g C · 0.2 g F</div>
         
       </div>
       <div class="food" data-fk="broccoli" data-cat="veg" data-name="Brokolica" data-kcal="34" data-p="2.8" data-c="7.0" data-f="0.4" data-fib="2.6" data-base="200">
@@ -365,561 +338,157 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
         
       </div>
       </div>
-      <div class="mtot" data-tot="a-din2"><b>596 kcal</b> · 39 g P · 56 g C · 24 g F · 11 g vlákniny</div>
+      <div class="mtot" data-tot="dinner"><b>557 kcal</b> · 38 g P · 48 g C · 24 g F · 10 g vlákniny</div>
       <h4>Postup</h4>
       <ol class="steps">
         <li>Zemiaky upeč alebo uvar v šupke.</li>
-        <li>Losos osoľ, pokvapkaj citrónom, upeč pri 180 °C cca 15 min (nie viac – vysuší sa).</li>
+        <li>Losos osoľ, pokvapkaj citrónom, upeč pri 180 °C cca 15 min – nie viac, vysuší sa.</li>
         <li>Brokolicu daj na paru 5 min.</li>
         <li>EVOO odváž na hotové jedlo.</li>
-        <li>Losos nepripravuj na viac ako 3 dni dopredu – po 3. dni už chutí inak.</li>
+        <li>Ryby nepripravuj na viac ako 3 dni dopredu – po 3. dni už chutia inak.</li>
       </ol>
     </article>
-    <article class="card meal" data-mk="a-din3" id="mk-a-din3">
-      <div class="mhead"><h3>Večera A3 – Sardinky so zemiakmi a zeleninou</h3><div class="msub">TÝŽDEŇ A · rotácia večerí 3 (najjednoduchšia)</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="sardines" data-cat="protein" data-name="Sardinky v olivovom oleji (odkvapkané)" data-kcal="208" data-p="25.0" data-c="0.0" data-f="11.0" data-fib="0.0" data-base="120">
-        <div class="frow"><span class="fname">Sardinky v olivovom oleji (odkvapkané)</span><span class="fval">120 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="300" step="1" value="120" aria-label="Sardinky v olivovom oleji (odkvapkané) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="120" aria-label="Sardinky v olivovom oleji (odkvapkané) – gramy"></div>
-        <div class="fm">250 kcal · 30.0 g P · 0.0 g C · 13.2 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="potatoes" data-cat="carb" data-name="Zemiaky" data-kcal="77" data-p="2.0" data-c="17.0" data-f="0.1" data-fib="2.2" data-base="300">
-        <div class="frow"><span class="fname">Zemiaky</span><span class="fval">300 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="800" step="1" value="300" aria-label="Zemiaky – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="300" aria-label="Zemiaky – gramy"></div>
-        <div class="fm">231 kcal · 6.0 g P · 51.0 g C · 0.3 g F</div>
-        
-      </div>
-      <div class="food" data-fk="vegmix" data-cat="veg" data-name="Zeleninová zmes (cuketa, paprika, paradajka, listová)" data-kcal="20" data-p="1.0" data-c="4.0" data-f="0.2" data-fib="1.5" data-base="200">
-        <div class="frow"><span class="fname">Zeleninová zmes (cuketa, paprika, paradajka, listová)</span><span class="fval">200 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="200" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="200" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramy"></div>
-        <div class="fm">40 kcal · 2.0 g P · 8.0 g C · 0.4 g F</div>
-        
-      </div>
-      <div class="food" data-fk="evoo" data-cat="fat" data-name="Extra panenský olivový olej (EVOO)" data-kcal="884" data-p="0.0" data-c="0.0" data-f="100.0" data-fib="0.0" data-base="5">
-        <div class="frow"><span class="fname">Extra panenský olivový olej (EVOO)</span><span class="fval">5 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="60" step="1" value="5" aria-label="Extra panenský olivový olej (EVOO) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="5" aria-label="Extra panenský olivový olej (EVOO) – gramy"></div>
-        <div class="fm">44 kcal · 0.0 g P · 0.0 g C · 5.0 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="a-din3"><b>565 kcal</b> · 38 g P · 59 g C · 19 g F · 10 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Zemiaky uvar v šupke alebo upeč.</li>
-        <li>Sardinky otvor, odkvapkaj olej (nie preplachovať).</li>
-        <li>Zeleninu priprav na pare.</li>
-        <li>Sardinky daj na zemiaky až pri servírovaní, EVOO odváž navrch.</li>
-      </ol>
-    </article>
-    <div class="card">
-      <h2>Denné a týždenné súčty – TÝŽDEŇ A</h2>
-      <div class="tw">
-        <table>
-          <thead><tr><th>Deň</th><th>kcal</th><th>P (g)</th><th>C (g)</th><th>F (g)</th><th>Vláknina (g)</th></tr></thead>
-          <tbody>
-        <tr data-wk="A" data-day="0"><th>Pondelok</th><td data-c="kcal">2331</td><td data-c="p">200</td><td data-c="c">219</td><td data-c="f">74</td><td data-c="fib">36</td></tr>
-        <tr data-wk="A" data-day="1"><th>Utorok</th><td data-c="kcal">2361</td><td data-c="p">192</td><td data-c="c">227</td><td data-c="f">77</td><td data-c="fib">44</td></tr>
-        <tr data-wk="A" data-day="2"><th>Streda</th><td data-c="kcal">2330</td><td data-c="p">192</td><td data-c="c">230</td><td data-c="f">72</td><td data-c="fib">43</td></tr>
-        <tr data-wk="A" data-day="3"><th>Štvrtok</th><td data-c="kcal">2331</td><td data-c="p">200</td><td data-c="c">219</td><td data-c="f">74</td><td data-c="fib">36</td></tr>
-        <tr data-wk="A" data-day="4"><th>Piatok</th><td data-c="kcal">2361</td><td data-c="p">192</td><td data-c="c">227</td><td data-c="f">77</td><td data-c="fib">44</td></tr>
-        <tr data-wk="A" data-day="5"><th>Sobota</th><td data-c="kcal">2330</td><td data-c="p">192</td><td data-c="c">230</td><td data-c="f">72</td><td data-c="fib">43</td></tr>
-        <tr data-wk="A" data-day="6"><th>Nedeľa</th><td data-c="kcal">2379</td><td data-c="p">197</td><td data-c="c">222</td><td data-c="f">78</td><td data-c="fib">32</td></tr>
-        <tr class="wktot" data-wktot="A"><th>TÝŽDEŇ (7 dní)</th><td data-c="kcal">16421</td><td data-c="p">1365</td><td data-c="c">1573</td><td data-c="f">524</td><td data-c="fib">276</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="sub" data-wkavg="A" style="margin-top:8px"></p>
-      <p class="sub">Nedeľa (pizza deň) má rovnaké hodnoty v Týždni A aj B.</p>
-    </div>
-  </section>
-
-  <section id="weekB">
-    <div class="card" style="background:linear-gradient(135deg,#0f172a,#334155);color:#fff">
-      <h2 style="color:#fff;margin:0">TÝŽDEŇ B</h2>
-      <p class="sub" style="color:#cbd5e1;margin:4px 0 0">Rotácia: A → B → A → B… Raňajky, obed a snack sú v rámci týždňa rovnaké, večera rotuje v 3 variantoch.</p>
-      <p class="sub">Varenie: <b>nedeľa</b> – jedlá B pokrývajú <b>pondelok až stredu</b>. <b>streda</b> – uvar znovu tie isté jedlá B na <b>štvrtok až sobotu</b>.</p>
-    </div>
-    <article class="card meal" data-mk="b-break" id="mk-b-break">
-      <div class="mhead"><h3>Raňajky B – Vajcia, ovos a skyr</h3><div class="msub">TÝŽDEŇ B · raňajky na 3 dni dopredu</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="eggs" data-cat="protein" data-name="Vajcia (celé)" data-kcal="143" data-p="12.5" data-c="0.7" data-f="9.5" data-fib="0.0" data-base="150">
-        <div class="frow"><span class="fname">Vajcia (celé)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="300" step="1" value="150" aria-label="Vajcia (celé) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Vajcia (celé) – gramy"></div>
-        <div class="fm">214 kcal · 18.8 g P · 1.0 g C · 14.2 g F</div>
-        
-      </div>
-      <div class="food" data-fk="eggwhite" data-cat="protein" data-name="Vaječné bielky" data-kcal="52" data-p="11.0" data-c="0.7" data-f="0.2" data-fib="0.0" data-base="50">
-        <div class="frow"><span class="fname">Vaječné bielky</span><span class="fval">50 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="300" step="1" value="50" aria-label="Vaječné bielky – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="50" aria-label="Vaječné bielky – gramy"></div>
-        <div class="fm">26 kcal · 5.5 g P · 0.3 g C · 0.1 g F</div>
-        
-      </div>
-      <div class="food" data-fk="oats" data-cat="carb" data-name="Ovos (suché vločky)" data-kcal="380" data-p="13.0" data-c="60.0" data-f="7.0" data-fib="10.0" data-base="40">
-        <div class="frow"><span class="fname">Ovos (suché vločky)</span><span class="fval">40 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="200" step="1" value="40" aria-label="Ovos (suché vločky) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="40" aria-label="Ovos (suché vločky) – gramy"></div>
-        <div class="fm">152 kcal · 5.2 g P · 24.0 g C · 2.8 g F</div>
-        
-      </div>
-      <div class="food" data-fk="skyr" data-cat="protein" data-name="Skyr (prírodný, 0,2 %)" data-kcal="63" data-p="11.0" data-c="4.0" data-f="0.2" data-fib="0.0" data-base="150">
-        <div class="frow"><span class="fname">Skyr (prírodný, 0,2 %)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="150" aria-label="Skyr (prírodný, 0,2 %) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Skyr (prírodný, 0,2 %) – gramy"></div>
-        <div class="fm">94 kcal · 16.5 g P · 6.0 g C · 0.3 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="berries" data-cat="other" data-name="Lesné ovocie (čučoriedky/maliny)" data-kcal="50" data-p="0.7" data-c="12.0" data-f="0.3" data-fib="3.0" data-base="150">
-        <div class="frow"><span class="fname">Lesné ovocie (čučoriedky/maliny)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="150" aria-label="Lesné ovocie (čučoriedky/maliny) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Lesné ovocie (čučoriedky/maliny) – gramy"></div>
-        <div class="fm">75 kcal · 1.0 g P · 18.0 g C · 0.4 g F</div>
-        
-      </div>
-      <div class="food" data-fk="flax" data-cat="fat" data-name="Ľanové semienka (mleté)" data-kcal="534" data-p="18.0" data-c="29.0" data-f="42.0" data-fib="27.0" data-base="10">
-        <div class="frow"><span class="fname">Ľanové semienka (mleté)</span><span class="fval">10 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="60" step="1" value="10" aria-label="Ľanové semienka (mleté) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="10" aria-label="Ľanové semienka (mleté) – gramy"></div>
-        <div class="fm">53 kcal · 1.8 g P · 2.9 g C · 4.2 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="b-break"><b>615 kcal</b> · 49 g P · 52 g C · 22 g F · 11 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>3 vajcia + 50 g bielkov rozšľahaj, osoľ, priprav ako omeletu na slabo naolejovanej panvici.</li>
-        <li>Ovos uvar alebo namoč cez noc.</li>
-        <li>Skyr vymiešaj s vodou na krém, primiešaj mleté ľanové semienko a lesné ovocie.</li>
-        <li>Omeleta sa do nádob balí zvlášť od skyr vrstvy.</li>
-      </ol>
-    </article>
-    <article class="card meal" data-mk="b-lunch" id="mk-b-lunch">
-      <div class="mhead"><h3>Obed B – Kuracie prsia so zemiakmi a kimchi</h3><div class="msub">TÝŽDEŇ B · obed na 3 dni (streda → štvrtok až sobota)</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="chicken" data-cat="protein" data-name="Kuracie prsia" data-kcal="165" data-p="31.0" data-c="0.0" data-f="3.6" data-fib="0.0" data-base="200">
-        <div class="frow"><span class="fname">Kuracie prsia</span><span class="fval">200 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="200" aria-label="Kuracie prsia – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="200" aria-label="Kuracie prsia – gramy"></div>
-        <div class="fm">330 kcal · 62.0 g P · 0.0 g C · 7.2 g F</div>
-        
-      </div>
-      <div class="food" data-fk="potatoes" data-cat="carb" data-name="Zemiaky" data-kcal="77" data-p="2.0" data-c="17.0" data-f="0.1" data-fib="2.2" data-base="250">
-        <div class="frow"><span class="fname">Zemiaky</span><span class="fval">250 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="800" step="1" value="250" aria-label="Zemiaky – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="250" aria-label="Zemiaky – gramy"></div>
-        <div class="fm">192 kcal · 5.0 g P · 42.5 g C · 0.2 g F</div>
-        
-      </div>
-      <div class="food" data-fk="broccoli" data-cat="veg" data-name="Brokolica" data-kcal="34" data-p="2.8" data-c="7.0" data-f="0.4" data-fib="2.6" data-base="150">
-        <div class="frow"><span class="fname">Brokolica</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="150" aria-label="Brokolica – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Brokolica – gramy"></div>
-        <div class="fm">51 kcal · 4.2 g P · 10.5 g C · 0.6 g F</div>
-        
-      </div>
-      <div class="food" data-fk="pepper" data-cat="veg" data-name="Paprika" data-kcal="31" data-p="1.0" data-c="6.0" data-f="0.3" data-fib="2.1" data-base="100">
-        <div class="frow"><span class="fname">Paprika</span><span class="fval">100 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="500" step="1" value="100" aria-label="Paprika – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="100" aria-label="Paprika – gramy"></div>
-        <div class="fm">31 kcal · 1.0 g P · 6.0 g C · 0.3 g F</div>
-        
-      </div>
-      <div class="food" data-fk="kimchi" data-cat="ferment" data-name="Kimchi" data-kcal="24" data-p="1.7" data-c="4.0" data-f="0.5" data-fib="2.4" data-base="80">
-        <div class="frow"><span class="fname">Kimchi</span><span class="fval">80 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="80" aria-label="Kimchi – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="80" aria-label="Kimchi – gramy"></div>
-        <div class="fm">19 kcal · 1.4 g P · 3.2 g C · 0.4 g F</div>
-        
-      </div>
-      <div class="food" data-fk="evoo" data-cat="fat" data-name="Extra panenský olivový olej (EVOO)" data-kcal="884" data-p="0.0" data-c="0.0" data-f="100.0" data-fib="0.0" data-base="10">
-        <div class="frow"><span class="fname">Extra panenský olivový olej (EVOO)</span><span class="fval">10 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="60" step="1" value="10" aria-label="Extra panenský olivový olej (EVOO) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="10" aria-label="Extra panenský olivový olej (EVOO) – gramy"></div>
-        <div class="fm">88 kcal · 0.0 g P · 0.0 g C · 10.0 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="b-lunch"><b>712 kcal</b> · 74 g P · 62 g C · 19 g F · 13 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Zemiaky upeč alebo uvar.</li>
-        <li>Kuracie prsia nalož (soľ, cesnak, paprika), upeč/opeč a nakrájaj na plátky.</li>
-        <li>Brokolicu a papriku krátko na pare.</li>
-        <li>Kimchi pridaj až na studené jedlo pri servírovaní (živé kultúry).</li>
-        <li>EVOO odváž navrch pred jedlom.</li>
-      </ol>
-    </article>
-    <article class="card meal" data-mk="b-snack" id="mk-b-snack">
-      <div class="mhead"><h3>Snack B – Kefír, tvaroh a banán</h3><div class="msub">TÝŽDEŇ B · snack</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="kefir" data-cat="protein" data-name="Kefír (2 %)" data-kcal="51" data-p="3.4" data-c="4.5" data-f="1.9" data-fib="0.0" data-base="250">
-        <div class="frow"><span class="fname">Kefír (2 %)</span><span class="fval">250 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="500" step="1" value="250" aria-label="Kefír (2 %) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="250" aria-label="Kefír (2 %) – gramy"></div>
-        <div class="fm">128 kcal · 8.5 g P · 11.2 g C · 4.8 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="cottage" data-cat="protein" data-name="Tvaroh nízkotučný (cottage)" data-kcal="98" data-p="11.0" data-c="3.4" data-f="4.3" data-fib="0.0" data-base="150">
-        <div class="frow"><span class="fname">Tvaroh nízkotučný (cottage)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="150" aria-label="Tvaroh nízkotučný (cottage) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Tvaroh nízkotučný (cottage) – gramy"></div>
-        <div class="fm">147 kcal · 16.5 g P · 5.1 g C · 6.4 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="banana" data-cat="other" data-name="Banán" data-kcal="89" data-p="1.1" data-c="23.0" data-f="0.3" data-fib="2.6" data-base="120">
-        <div class="frow"><span class="fname">Banán</span><span class="fval">120 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="300" step="1" value="120" aria-label="Banán – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="120" aria-label="Banán – gramy"></div>
-        <div class="fm">107 kcal · 1.3 g P · 27.6 g C · 0.4 g F</div>
-        
-      </div>
-      <div class="food" data-fk="walnuts" data-cat="fat" data-name="Vlašské orechy" data-kcal="654" data-p="15.0" data-c="14.0" data-f="65.0" data-fib="7.0" data-base="15">
-        <div class="frow"><span class="fname">Vlašské orechy</span><span class="fval">15 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="100" step="1" value="15" aria-label="Vlašské orechy – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="15" aria-label="Vlašské orechy – gramy"></div>
-        <div class="fm">98 kcal · 2.2 g P · 2.1 g C · 9.8 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="b-snack"><b>479 kcal</b> · 29 g P · 46 g C · 21 g F · 4 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Tvaroh vymiešaj s kefírom na hladkú zmes.</li>
-        <li>Banán krájaj až pred jedlom.</li>
-        <li>Vlašské orechy odváž na 15 g.</li>
-      </ol>
-    </article>
-    <article class="card meal" data-mk="b-din1" id="mk-b-din1">
-      <div class="mhead"><h3>Večera B1 – Tuniak s ryžou a zeleninou</h3><div class="msub">TÝŽDEŇ B · rotácia večerí 1</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="tuna" data-cat="protein" data-name="Tuniak vo vlastnej šťave (odkvapkaný)" data-kcal="116" data-p="26.0" data-c="0.0" data-f="1.0" data-fib="0.0" data-base="200">
-        <div class="frow"><span class="fname">Tuniak vo vlastnej šťave (odkvapkaný)</span><span class="fval">200 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="200" aria-label="Tuniak vo vlastnej šťave (odkvapkaný) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="200" aria-label="Tuniak vo vlastnej šťave (odkvapkaný) – gramy"></div>
-        <div class="fm">232 kcal · 52.0 g P · 0.0 g C · 2.0 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="rice" data-cat="carb" data-name="Ryža (uvarená)" data-kcal="130" data-p="2.7" data-c="28.0" data-f="0.3" data-fib="0.4" data-base="150">
-        <div class="frow"><span class="fname">Ryža (uvarená)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="700" step="1" value="150" aria-label="Ryža (uvarená) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Ryža (uvarená) – gramy"></div>
-        <div class="fm">195 kcal · 4.1 g P · 42.0 g C · 0.4 g F</div>
-        <div class="note">Uvarená hmotnosť (100 g surovej ryže ≈ 280 g uvarenej).</div>
-      </div>
-      <div class="food" data-fk="vegmix" data-cat="veg" data-name="Zeleninová zmes (cuketa, paprika, paradajka, listová)" data-kcal="20" data-p="1.0" data-c="4.0" data-f="0.2" data-fib="1.5" data-base="150">
-        <div class="frow"><span class="fname">Zeleninová zmes (cuketa, paprika, paradajka, listová)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="150" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramy"></div>
-        <div class="fm">30 kcal · 1.5 g P · 6.0 g C · 0.3 g F</div>
-        
-      </div>
-      <div class="food" data-fk="evoo" data-cat="fat" data-name="Extra panenský olivový olej (EVOO)" data-kcal="884" data-p="0.0" data-c="0.0" data-f="100.0" data-fib="0.0" data-base="8">
-        <div class="frow"><span class="fname">Extra panenský olivový olej (EVOO)</span><span class="fval">8 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="60" step="1" value="8" aria-label="Extra panenský olivový olej (EVOO) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="8" aria-label="Extra panenský olivový olej (EVOO) – gramy"></div>
-        <div class="fm">71 kcal · 0.0 g P · 0.0 g C · 8.0 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="b-din1"><b>528 kcal</b> · 58 g P · 48 g C · 11 g F · 3 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Ryžu uvar vopred.</li>
-        <li>Tuniak odkvapkaj, rozdeľ vidličkou.</li>
-        <li>Zeleninu opeč alebo daj na paru.</li>
-        <li>EVOO a citrón pridaj na hotové jedlo (tuniak je suchý, olej je nutný).</li>
-      </ol>
-    </article>
-    <article class="card meal" data-mk="b-din2" id="mk-b-din2">
-      <div class="mhead"><h3>Večera B2 – Biele ryby so zemiakmi a zeleninou</h3><div class="msub">TÝŽDEŇ B · rotácia večerí 2</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="cod" data-cat="protein" data-name="Biele ryby (treska / filé)" data-kcal="82" data-p="18.0" data-c="0.0" data-f="0.7" data-fib="0.0" data-base="200">
-        <div class="frow"><span class="fname">Biele ryby (treska / filé)</span><span class="fval">200 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="200" aria-label="Biele ryby (treska / filé) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="200" aria-label="Biele ryby (treska / filé) – gramy"></div>
-        <div class="fm">164 kcal · 36.0 g P · 0.0 g C · 1.4 g F</div>
-        
-      </div>
-      <div class="food" data-fk="potatoes" data-cat="carb" data-name="Zemiaky" data-kcal="77" data-p="2.0" data-c="17.0" data-f="0.1" data-fib="2.2" data-base="300">
-        <div class="frow"><span class="fname">Zemiaky</span><span class="fval">300 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="800" step="1" value="300" aria-label="Zemiaky – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="300" aria-label="Zemiaky – gramy"></div>
-        <div class="fm">231 kcal · 6.0 g P · 51.0 g C · 0.3 g F</div>
-        
-      </div>
-      <div class="food" data-fk="vegmix" data-cat="veg" data-name="Zeleninová zmes (cuketa, paprika, paradajka, listová)" data-kcal="20" data-p="1.0" data-c="4.0" data-f="0.2" data-fib="1.5" data-base="200">
-        <div class="frow"><span class="fname">Zeleninová zmes (cuketa, paprika, paradajka, listová)</span><span class="fval">200 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="200" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="200" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramy"></div>
-        <div class="fm">40 kcal · 2.0 g P · 8.0 g C · 0.4 g F</div>
-        
-      </div>
-      <div class="food" data-fk="evoo" data-cat="fat" data-name="Extra panenský olivový olej (EVOO)" data-kcal="884" data-p="0.0" data-c="0.0" data-f="100.0" data-fib="0.0" data-base="8">
-        <div class="frow"><span class="fname">Extra panenský olivový olej (EVOO)</span><span class="fval">8 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="60" step="1" value="8" aria-label="Extra panenský olivový olej (EVOO) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="8" aria-label="Extra panenský olivový olej (EVOO) – gramy"></div>
-        <div class="fm">71 kcal · 0.0 g P · 0.0 g C · 8.0 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="b-din2"><b>506 kcal</b> · 44 g P · 59 g C · 10 g F · 10 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Zemiaky upeč/uvár.</li>
-        <li>Biele ryby osoľ, obaľ v troche múky (voliteľné), opeč 3 min z každej strany.</li>
-        <li>Zeleninu priprav na pare.</li>
-        <li>EVOO na hotové jedlo.</li>
-      </ol>
-    </article>
-    <article class="card meal" data-mk="b-din3" id="mk-b-din3">
-      <div class="mhead"><h3>Večera B3 – Morčacie mäso s ryžou a brokolicou</h3><div class="msub">TÝŽDEŇ B · rotácia večerí 3</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="turkey" data-cat="protein" data-name="Morčacie prsia" data-kcal="157" data-p="30.0" data-c="0.0" data-f="3.5" data-fib="0.0" data-base="150">
-        <div class="frow"><span class="fname">Morčacie prsia</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="150" aria-label="Morčacie prsia – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Morčacie prsia – gramy"></div>
-        <div class="fm">236 kcal · 45.0 g P · 0.0 g C · 5.2 g F</div>
-        
-      </div>
-      <div class="food" data-fk="rice" data-cat="carb" data-name="Ryža (uvarená)" data-kcal="130" data-p="2.7" data-c="28.0" data-f="0.3" data-fib="0.4" data-base="150">
-        <div class="frow"><span class="fname">Ryža (uvarená)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="700" step="1" value="150" aria-label="Ryža (uvarená) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Ryža (uvarená) – gramy"></div>
-        <div class="fm">195 kcal · 4.1 g P · 42.0 g C · 0.4 g F</div>
-        <div class="note">Uvarená hmotnosť (100 g surovej ryže ≈ 280 g uvarenej).</div>
-      </div>
-      <div class="food" data-fk="broccoli" data-cat="veg" data-name="Brokolica" data-kcal="34" data-p="2.8" data-c="7.0" data-f="0.4" data-fib="2.6" data-base="200">
-        <div class="frow"><span class="fname">Brokolica</span><span class="fval">200 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="200" aria-label="Brokolica – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="200" aria-label="Brokolica – gramy"></div>
-        <div class="fm">68 kcal · 5.6 g P · 14.0 g C · 0.8 g F</div>
-        
-      </div>
-      <div class="food" data-fk="evoo" data-cat="fat" data-name="Extra panenský olivový olej (EVOO)" data-kcal="884" data-p="0.0" data-c="0.0" data-f="100.0" data-fib="0.0" data-base="8">
-        <div class="frow"><span class="fname">Extra panenský olivový olej (EVOO)</span><span class="fval">8 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="60" step="1" value="8" aria-label="Extra panenský olivový olej (EVOO) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="8" aria-label="Extra panenský olivový olej (EVOO) – gramy"></div>
-        <div class="fm">71 kcal · 0.0 g P · 0.0 g C · 8.0 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="b-din3"><b>569 kcal</b> · 55 g P · 56 g C · 14 g F · 6 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Ryžu uvar.</li>
-        <li>Morčacie mäso ochuť a opeč/upeč.</li>
-        <li>Brokolicu 5 min na paru.</li>
-        <li>EVOO odváž na hotové jedlo.</li>
-      </ol>
-    </article>
-    <div class="card">
-      <h2>Denné a týždenné súčty – TÝŽDEŇ B</h2>
-      <div class="tw">
-        <table>
-          <thead><tr><th>Deň</th><th>kcal</th><th>P (g)</th><th>C (g)</th><th>F (g)</th><th>Vláknina (g)</th></tr></thead>
-          <tbody>
-        <tr data-wk="B" data-day="0"><th>Pondelok</th><td data-c="kcal">2335</td><td data-c="p">208</td><td data-c="c">209</td><td data-c="f">73</td><td data-c="fib">32</td></tr>
-        <tr data-wk="B" data-day="1"><th>Utorok</th><td data-c="kcal">2313</td><td data-c="p">195</td><td data-c="c">220</td><td data-c="f">72</td><td data-c="fib">38</td></tr>
-        <tr data-wk="B" data-day="2"><th>Streda</th><td data-c="kcal">2376</td><td data-c="p">206</td><td data-c="c">217</td><td data-c="f">77</td><td data-c="fib">35</td></tr>
-        <tr data-wk="B" data-day="3"><th>Štvrtok</th><td data-c="kcal">2335</td><td data-c="p">208</td><td data-c="c">209</td><td data-c="f">73</td><td data-c="fib">32</td></tr>
-        <tr data-wk="B" data-day="4"><th>Piatok</th><td data-c="kcal">2313</td><td data-c="p">195</td><td data-c="c">220</td><td data-c="f">72</td><td data-c="fib">38</td></tr>
-        <tr data-wk="B" data-day="5"><th>Sobota</th><td data-c="kcal">2376</td><td data-c="p">206</td><td data-c="c">217</td><td data-c="f">77</td><td data-c="fib">35</td></tr>
-        <tr data-wk="B" data-day="6"><th>Nedeľa</th><td data-c="kcal">2379</td><td data-c="p">197</td><td data-c="c">222</td><td data-c="f">78</td><td data-c="fib">32</td></tr>
-        <tr class="wktot" data-wktot="B"><th>TÝŽDEŇ (7 dní)</th><td data-c="kcal">16425</td><td data-c="p">1415</td><td data-c="c">1512</td><td data-c="f">522</td><td data-c="fib">241</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="sub" data-wkavg="B" style="margin-top:8px"></p>
-      <p class="sub">Nedeľa (pizza deň) má rovnaké hodnoty v Týždni A aj B.</p>
-    </div>
-  </section>
-
-  <section id="sunday">
-    <div class="card" style="background:linear-gradient(135deg,#7c2d12,#c2410c);color:#fff">
-      <h2 style="color:#fff;margin:0">NEDEĽA – PIZZA DEŇ</h2>
-      <p class="sub" style="color:#ffe4d6;margin:4px 0 0">Pizza nie je cheat day. Raňajky a obed sú zámerne bez rýchlych sacharidov, sacharidy patria pizze. Celý deň zostáva v plánovaných kalóriách: 2379 kcal, 197 g P, 222 g C, 78 g F, 32 g vlákniny.</p>
-    </div>
-    <article class="card meal" data-mk="sun-break" id="mk-sun-break">
-      <div class="mhead"><h3>Nedeľa – Raňajky</h3><div class="msub">NEDEĽA · pizza deň, raňajky ľahšie a bez rýchlych sacharidov</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="skyr" data-cat="protein" data-name="Skyr (prírodný, 0,2 %)" data-kcal="63" data-p="11.0" data-c="4.0" data-f="0.2" data-fib="0.0" data-base="250">
-        <div class="frow"><span class="fname">Skyr (prírodný, 0,2 %)</span><span class="fval">250 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="250" aria-label="Skyr (prírodný, 0,2 %) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="250" aria-label="Skyr (prírodný, 0,2 %) – gramy"></div>
-        <div class="fm">158 kcal · 27.5 g P · 10.0 g C · 0.5 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="oats" data-cat="carb" data-name="Ovos (suché vločky)" data-kcal="380" data-p="13.0" data-c="60.0" data-f="7.0" data-fib="10.0" data-base="40">
-        <div class="frow"><span class="fname">Ovos (suché vločky)</span><span class="fval">40 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="200" step="1" value="40" aria-label="Ovos (suché vločky) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="40" aria-label="Ovos (suché vločky) – gramy"></div>
-        <div class="fm">152 kcal · 5.2 g P · 24.0 g C · 2.8 g F</div>
-        
-      </div>
-      <div class="food" data-fk="berries" data-cat="other" data-name="Lesné ovocie (čučoriedky/maliny)" data-kcal="50" data-p="0.7" data-c="12.0" data-f="0.3" data-fib="3.0" data-base="200">
-        <div class="frow"><span class="fname">Lesné ovocie (čučoriedky/maliny)</span><span class="fval">200 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="200" aria-label="Lesné ovocie (čučoriedky/maliny) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="200" aria-label="Lesné ovocie (čučoriedky/maliny) – gramy"></div>
-        <div class="fm">100 kcal · 1.4 g P · 24.0 g C · 0.6 g F</div>
-        
-      </div>
-      <div class="food" data-fk="eggs" data-cat="protein" data-name="Vajcia (celé)" data-kcal="143" data-p="12.5" data-c="0.7" data-f="9.5" data-fib="0.0" data-base="150">
-        <div class="frow"><span class="fname">Vajcia (celé)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="300" step="1" value="150" aria-label="Vajcia (celé) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Vajcia (celé) – gramy"></div>
-        <div class="fm">214 kcal · 18.8 g P · 1.0 g C · 14.2 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="sun-break"><b>624 kcal</b> · 53 g P · 59 g C · 18 g F · 10 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Skyr vymiešaj s vodou na krém, primiešaj lesné ovocie.</li>
-        <li>Ovos uvar alebo namoč cez noc.</li>
-        <li>3 vajcia uvar natvrdo.</li>
-        <li>Sacharidy si nechaj na pizzu – raňajky sú preto nízkosacharidové.</li>
-      </ol>
-    </article>
-    <article class="card meal" data-mk="sun-lunch" id="mk-sun-lunch">
-      <div class="mhead"><h3>Nedeľa – Obed</h3><div class="msub">NEDEĽA · obed bez prílohy (sacharidy patria pizze)</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="turkey" data-cat="protein" data-name="Morčacie prsia" data-kcal="157" data-p="30.0" data-c="0.0" data-f="3.5" data-fib="0.0" data-base="220">
-        <div class="frow"><span class="fname">Morčacie prsia</span><span class="fval">220 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="220" aria-label="Morčacie prsia – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="220" aria-label="Morčacie prsia – gramy"></div>
-        <div class="fm">345 kcal · 66.0 g P · 0.0 g C · 7.7 g F</div>
-        
-      </div>
-      <div class="food" data-fk="vegmix" data-cat="veg" data-name="Zeleninová zmes (cuketa, paprika, paradajka, listová)" data-kcal="20" data-p="1.0" data-c="4.0" data-f="0.2" data-fib="1.5" data-base="300">
-        <div class="frow"><span class="fname">Zeleninová zmes (cuketa, paprika, paradajka, listová)</span><span class="fval">300 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="300" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="300" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramy"></div>
-        <div class="fm">60 kcal · 3.0 g P · 12.0 g C · 0.6 g F</div>
-        
-      </div>
-      <div class="food" data-fk="sauerkraut" data-cat="ferment" data-name="Kyslá kapusta" data-kcal="19" data-p="0.9" data-c="4.3" data-f="0.1" data-fib="2.9" data-base="150">
-        <div class="frow"><span class="fname">Kyslá kapusta</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="150" aria-label="Kyslá kapusta – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Kyslá kapusta – gramy"></div>
-        <div class="fm">28 kcal · 1.4 g P · 6.4 g C · 0.2 g F</div>
-        
-      </div>
-      <div class="food" data-fk="evoo" data-cat="fat" data-name="Extra panenský olivový olej (EVOO)" data-kcal="884" data-p="0.0" data-c="0.0" data-f="100.0" data-fib="0.0" data-base="6">
-        <div class="frow"><span class="fname">Extra panenský olivový olej (EVOO)</span><span class="fval">6 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="60" step="1" value="6" aria-label="Extra panenský olivový olej (EVOO) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="6" aria-label="Extra panenský olivový olej (EVOO) – gramy"></div>
-        <div class="fm">53 kcal · 0.0 g P · 0.0 g C · 6.0 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="sun-lunch"><b>487 kcal</b> · 70 g P · 18 g C · 14 g F · 9 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Mäso upeč/opeč.</li>
-        <li>Zeleninu priprav na pare alebo ako veľký šalát.</li>
-        <li>Kyslá kapusta pri servírovaní, EVOO odváž navrch.</li>
-        <li>Žiadna ryža/zemiaky – obed je zámerne bez prílohy.</li>
-      </ol>
-    </article>
-    <article class="card meal" data-mk="sun-snack" id="mk-sun-snack">
-      <div class="mhead"><h3>Nedeľa – Snack</h3><div class="msub">NEDEĽA · malý snack pred pizzou</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="kefir" data-cat="protein" data-name="Kefír (2 %)" data-kcal="51" data-p="3.4" data-c="4.5" data-f="1.9" data-fib="0.0" data-base="200">
-        <div class="frow"><span class="fname">Kefír (2 %)</span><span class="fval">200 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="500" step="1" value="200" aria-label="Kefír (2 %) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="200" aria-label="Kefír (2 %) – gramy"></div>
-        <div class="fm">102 kcal · 6.8 g P · 9.0 g C · 3.8 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="cottage" data-cat="protein" data-name="Tvaroh nízkotučný (cottage)" data-kcal="98" data-p="11.0" data-c="3.4" data-f="4.3" data-fib="0.0" data-base="250">
-        <div class="frow"><span class="fname">Tvaroh nízkotučný (cottage)</span><span class="fval">250 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="250" aria-label="Tvaroh nízkotučný (cottage) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="250" aria-label="Tvaroh nízkotučný (cottage) – gramy"></div>
-        <div class="fm">245 kcal · 27.5 g P · 8.5 g C · 10.8 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="apple" data-cat="other" data-name="Jablko" data-kcal="52" data-p="0.3" data-c="14.0" data-f="0.2" data-fib="2.4" data-base="150">
-        <div class="frow"><span class="fname">Jablko</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="150" aria-label="Jablko – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Jablko – gramy"></div>
-        <div class="fm">78 kcal · 0.4 g P · 21.0 g C · 0.3 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="sun-snack"><b>425 kcal</b> · 35 g P · 38 g C · 15 g F · 4 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Kefír vymiešaj s tvarohom, jablko krájaj na mieste.</li>
-      </ol>
-    </article>
-    <article class="card meal" data-mk="pizza" id="mk-pizza">
-      <div class="mhead"><h3>Nedeľa – Domáca pizza</h3><div class="msub">NEDEĽA · hlavné jedlo dňa. Pizza NIE je cheat day.</div></div>
-      <h4>Ingrediencie – gramáže a makrá (živé)</h4>
-      <div class="foods">
-      <div class="food" data-fk="dough" data-cat="carb" data-name="Pizza cesto (domáce)" data-kcal="250" data-p="8.0" data-c="50.0" data-f="2.5" data-fib="2.0" data-base="170">
-        <div class="frow"><span class="fname">Pizza cesto (domáce)</span><span class="fval">170 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="170" aria-label="Pizza cesto (domáce) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="170" aria-label="Pizza cesto (domáce) – gramy"></div>
-        <div class="fm">425 kcal · 13.6 g P · 85.0 g C · 4.2 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="sauce" data-cat="veg" data-name="Paradajková omáčka (passata)" data-kcal="35" data-p="1.5" data-c="6.0" data-f="0.3" data-fib="1.5" data-base="150">
-        <div class="frow"><span class="fname">Paradajková omáčka (passata)</span><span class="fval">150 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="300" step="1" value="150" aria-label="Paradajková omáčka (passata) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="150" aria-label="Paradajková omáčka (passata) – gramy"></div>
-        <div class="fm">52 kcal · 2.2 g P · 9.0 g C · 0.4 g F</div>
-        
-      </div>
-      <div class="food" data-fk="mozz" data-cat="fat" data-name="Mozzarella" data-kcal="280" data-p="18.0" data-c="3.1" data-f="22.0" data-fib="0.0" data-base="70">
-        <div class="frow"><span class="fname">Mozzarella</span><span class="fval">70 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="200" step="1" value="70" aria-label="Mozzarella – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="70" aria-label="Mozzarella – gramy"></div>
-        <div class="fm">196 kcal · 12.6 g P · 2.2 g C · 15.4 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="prosciutto" data-cat="protein" data-name="Prosciutto / kvalitná šunka" data-kcal="250" data-p="26.0" data-c="0.5" data-f="16.0" data-fib="0.0" data-base="30">
-        <div class="frow"><span class="fname">Prosciutto / kvalitná šunka</span><span class="fval">30 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="150" step="1" value="30" aria-label="Prosciutto / kvalitná šunka – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="30" aria-label="Prosciutto / kvalitná šunka – gramy"></div>
-        <div class="fm">75 kcal · 7.8 g P · 0.1 g C · 4.8 g F</div>
-        <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</div>
-      </div>
-      <div class="food" data-fk="vegmix" data-cat="veg" data-name="Zeleninová zmes (cuketa, paprika, paradajka, listová)" data-kcal="20" data-p="1.0" data-c="4.0" data-f="0.2" data-fib="1.5" data-base="250">
-        <div class="frow"><span class="fname">Zeleninová zmes (cuketa, paprika, paradajka, listová)</span><span class="fval">250 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="250" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="250" aria-label="Zeleninová zmes (cuketa, paprika, paradajka, listová) – gramy"></div>
-        <div class="fm">50 kcal · 2.5 g P · 10.0 g C · 0.5 g F</div>
-        
-      </div>
-      <div class="food" data-fk="evoo" data-cat="fat" data-name="Extra panenský olivový olej (EVOO)" data-kcal="884" data-p="0.0" data-c="0.0" data-f="100.0" data-fib="0.0" data-base="5">
-        <div class="frow"><span class="fname">Extra panenský olivový olej (EVOO)</span><span class="fval">5 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="60" step="1" value="5" aria-label="Extra panenský olivový olej (EVOO) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="5" aria-label="Extra panenský olivový olej (EVOO) – gramy"></div>
-        <div class="fm">44 kcal · 0.0 g P · 0.0 g C · 5.0 g F</div>
-        
-      </div>
-      </div>
-      <div class="mtot" data-tot="pizza"><b>843 kcal</b> · 39 g P · 106 g C · 30 g F · 9 g vlákniny</div>
-      <h4>Postup</h4>
-      <ol class="steps">
-        <li>Cesto vyvaľkaj na tenko (tenká pizza = menej sacharidov, viac plochy na zeleninu).</li>
-        <li>Potri passatou, osoľ, pridaj oregano a cesnak.</li>
-        <li>Naukladaj zeleninu (paprika, cuketa, paradajka), potom mozzarellu.</li>
-        <li>Peč na max. teplote (250–280 °C) 8–12 min na rozpálenom plechu/kameni.</li>
-        <li>Prosciutto pridaj až po upečení (zostane jemné, nezhrnie sa).</li>
-        <li>EVOO odváž na hotovú pizzu.</li>
-        <li>V Týždni B môžeš prosciutto vymeniť za kvalitnú chudú šunku a pridať viac húb – kaloricky zostáva rovnaké.</li>
-      </ol>
-    </article>
-  </section>
-
-  <section id="mealprep" class="card">
-    <h2>Meal prep – 12 sklenených nádob, varenie 2× týždenne</h2>
-    <ol class="steps">
-      <li><b>Nedeľa (varenie #1):</b> uvar jedlá aktuálneho týždňa (A alebo B) na <b>pondelok, utorok, streda</b> – 3× raňajky, 3× obed, 3× snack a večere podľa rotácie. Nedeľná pizza sa robí v nedeľu večer.</li>
-      <li><b>Streda (varenie #2):</b> to isté v druhom cykle na <b>štvrtok, piatok, sobota</b>.</li>
-      <li><b>Nádoby:</b> 12 kusov = 3 dni × 4 jedlá (raňajky, obed, snack, večera).</li>
-      <li><b>Poradie vrstiev:</b> mäso/ryba dolu, sacharidová príloha a zelenina navrch. EVOO a kyslá kapusta / kimchi idú do nádoby až pri servírovaní (alebo zvlášť).</li>
-      <li><b>Trvanlivosť:</b> ryby (losos, sardinky, tuniak) maximálne 3 dni. Hovädzie, morčacie a kuracie 3–4 dni.</li>
-      <li><b>Ryža a zemiaky:</b> uvar ich naraz vo väčšom množstve – v chladničke vydržia 3–4 dni, ohrievaj v nádobe.</li>
-      <li><b>Raňajky:</b> overnight oats / skyr zmes priprav na 3 dni dopredu, ovocie krájaj až ráno.</li>
-      <li><b>Rotácia týždňov:</b> A → B → A → B… Pri prechode na nový týždeň stačí vymeniť suroviny podľa sekcie nižšie, štruktúra a gramáže zostávajú rovnaké.</li>
-    </ol>
   </section>
 
   <section class="card">
-    <h2>Nutričné hodnoty potravín (na 100 g) – editovateľné</h2>
-    <p class="sub">Toto sú dáta, z ktorých appka počíta. Zmeň číslo a všetky jedlá, denný aj týždenný súčet sa okamžite prepočítajú.
-    Zmena platí pre túto reláciu; pre trvalú zmenu prepíš hodnoty priamo v HTML (atribúty <code>data-kcal</code>, <code>data-p</code>, <code>data-c</code>, <code>data-f</code>, <code>data-fib</code> pri jednotlivých potravinách).</p>
-    <div class="dbwrap db">
+    <h2>TÝŽDEŇ</h2>
+    <div class="daysrow"><label class="sub" for="days" style="flex:1 1 auto">Nakupujem a plánujem na</label>
+      <input id="days" type="number" min="1" max="14" step="1" value="7"><span class="sub">dní</span></div>
+    <div class="bigweek">
+      <div><b data-wk="kcal">16224</b><span>kcal</span></div>
+      <div><b data-wk="p">1344</b><span>g P</span></div>
+      <div><b data-wk="c">1509</b><span>g C</span></div>
+      <div><b data-wk="f">546</b><span>g F</span></div>
+      <div><b data-wk="fib">295</b><span>g vlákniny</span></div>
+    </div>
+    <p class="sub">Týždenný súčet = denný súčet × <b data-wk="days">7</b> dní. Pri 7 dňoch je to 16224 kcal a 1344 g bielkovín.</p>
+    <div class="rule"><b>Varenie 2× týždenne:</b> nedeľa – uvar na pondelok až stredu · streda – uvar na štvrtok až sobotu. 12 sklenených nádob = 3 dni × 4 jedlá. Ryby drž maximálne 3 dni, kyslú kapustu pridaj až pri servírovaní.</div>
+  </section>
+
+  <section class="card" id="nakup">
+    <h2>NÁKUPNÝ ZOZNAM NA TÝŽDEŇ</h2>
+    <p class="sub">Počítaný z aktuálnych gramáží × počet dní. Zaškrtni, čo už máš kúpené.</p>
+    <div class="tw">
       <table>
-        <thead><tr><th>Potravina</th><th>kcal</th><th>P</th><th>C</th><th>F</th><th>Vláknina</th></tr></thead>
+        <thead><tr><th>Potravina</th><th>Dávka</th><th class="wkcol">NA 7 DNÍ</th></tr></thead>
         <tbody>
+          <tr class="grp" data-shopgrp="maso"><td colspan="3">Mäso a ryby</td></tr>
+          <tr class="shop-row" data-fk="turkey" data-grp="maso"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Morčacie prsia</span></label></td><td class="dose">200 g / deň</td><td class="qty sweek">1,40 kg</td></tr>
+          <tr class="shop-row" data-fk="salmon" data-grp="maso"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Losos</span></label></td><td class="dose">140 g / deň</td><td class="qty sweek">980 g</td></tr>
+          <tr class="grp" data-shopgrp="mliecne"><td colspan="3">Mliečne výrobky a vajcia</td></tr>
+          <tr class="shop-row" data-fk="skyr" data-grp="mliecne"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Skyr (prírodný, 0,2 %)</span></label></td><td class="dose">450 g / deň</td><td class="qty sweek">3,15 kg</td></tr>
+          <tr class="shop-row" data-fk="kefir" data-grp="mliecne"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Kefír (2 %)</span></label></td><td class="dose">200 g / deň</td><td class="qty sweek">1,40 kg</td></tr>
+          <tr class="shop-row" data-fk="eggs" data-grp="mliecne"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Vajcia (celé)</span></label></td><td class="dose">110 g / deň</td><td class="qty sweek">770 g</td></tr>
+          <tr class="grp" data-shopgrp="prilohy"><td colspan="3">Prílohy a obilniny</td></tr>
+          <tr class="shop-row" data-fk="oats" data-grp="prilohy"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Ovos (suché vločky)</span></label></td><td class="dose">35 g / deň</td><td class="qty sweek">245 g</td></tr>
+          <tr class="shop-row" data-fk="potatoes" data-grp="prilohy"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Zemiaky</span></label></td><td class="dose">500 g / deň</td><td class="qty sweek">3,50 kg</td></tr>
+          <tr class="grp" data-shopgrp="zelenina"><td colspan="3">Zelenina a fermentované</td></tr>
+          <tr class="shop-row" data-fk="broccoli" data-grp="zelenina"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Brokolica</span></label></td><td class="dose">350 g / deň</td><td class="qty sweek">2,45 kg</td></tr>
+          <tr class="shop-row" data-fk="pepper" data-grp="zelenina"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Paprika</span></label></td><td class="dose">100 g / deň</td><td class="qty sweek">700 g</td></tr>
+          <tr class="shop-row" data-fk="sauerkraut" data-grp="zelenina"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Kyslá kapusta</span></label></td><td class="dose">80 g / deň</td><td class="qty sweek">560 g</td></tr>
+          <tr class="grp" data-shopgrp="ovocie"><td colspan="3">Ovocie</td></tr>
+          <tr class="shop-row" data-fk="berries" data-grp="ovocie"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Lesné ovocie (čučoriedky/maliny)</span></label></td><td class="dose">150 g / deň</td><td class="qty sweek">1,05 kg</td></tr>
+          <tr class="shop-row" data-fk="apple" data-grp="ovocie"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Jablko</span></label></td><td class="dose">150 g / deň</td><td class="qty sweek">1,05 kg</td></tr>
+          <tr class="grp" data-shopgrp="orechy"><td colspan="3">Orechy, semienka a oleje</td></tr>
+          <tr class="shop-row" data-fk="walnuts" data-grp="orechy"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Vlašské orechy</span></label></td><td class="dose">10 g / deň</td><td class="qty sweek">70 g</td></tr>
+          <tr class="shop-row" data-fk="almonds" data-grp="orechy"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Mandle</span></label></td><td class="dose">15 g / deň</td><td class="qty sweek">105 g</td></tr>
+          <tr class="shop-row" data-fk="chia" data-grp="orechy"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Chia semienka</span></label></td><td class="dose">10 g / deň</td><td class="qty sweek">70 g</td></tr>
+          <tr class="shop-row" data-fk="evoo" data-grp="orechy"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Extra panenský olivový olej (EVOO)</span></label></td><td class="dose">15 g / deň</td><td class="qty sweek">105 g</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="btns">
+      <button id="btnShop" class="ghost">Kopírovať nákupný zoznam</button>
+      <button id="btnShare" class="ghost small">Odkaz s nastavením</button>
+      <button id="btnCopy" class="ghost small">Kopírovať JSON</button>
+      <button id="btnExport" class="ghost small">Export JSON</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <details>
+      <summary>Export / kopírovanie (JSON, nákupný zoznam)</summary>
+      <textarea id="shareBox" readonly placeholder="Sem sa zapíše JSON alebo nákupný zoznam po kliknutí na príslušné tlačidlo."></textarea>
+    </details>
+    <details>
+      <summary>Nutričné hodnoty potravín (na 100 g) – editovateľné</summary>
+      <p class="sub">Zmeň číslo a všetko sa okamžite prepočíta. Zmena platí pre túto reláciu; pre trvalú prepíš atribúty <code>data-kcal</code>, <code>data-p</code>, <code>data-c</code>, <code>data-f</code>, <code>data-fib</code> v HTML.</p>
+      <div class="dbwrap">
+        <table class="db">
+          <thead><tr><th>Potravina</th><th>kcal</th><th>P</th><th>C</th><th>F</th><th>Vláknina</th></tr></thead>
+          <tbody>
           <tr><th>Skyr (prírodný, 0,2 %)</th>
             <td><input type="number" step="1" min="0" value="63" data-fk="skyr" data-fd="kcal"></td>
             <td><input type="number" step="0.5" min="0" value="11.0" data-fk="skyr" data-fd="p"></td>
             <td><input type="number" step="0.5" min="0" value="4.0" data-fk="skyr" data-fd="c"></td>
             <td><input type="number" step="0.5" min="0" value="0.2" data-fk="skyr" data-fd="f"></td>
             <td><input type="number" step="0.5" min="0" value="0.0" data-fk="skyr" data-fd="fib"></td></tr>
+          <tr><th>Kefír (2 %)</th>
+            <td><input type="number" step="1" min="0" value="51" data-fk="kefir" data-fd="kcal"></td>
+            <td><input type="number" step="0.5" min="0" value="3.4" data-fk="kefir" data-fd="p"></td>
+            <td><input type="number" step="0.5" min="0" value="4.5" data-fk="kefir" data-fd="c"></td>
+            <td><input type="number" step="0.5" min="0" value="1.9" data-fk="kefir" data-fd="f"></td>
+            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="kefir" data-fd="fib"></td></tr>
+          <tr><th>Vajcia (celé)</th>
+            <td><input type="number" step="1" min="0" value="143" data-fk="eggs" data-fd="kcal"></td>
+            <td><input type="number" step="0.5" min="0" value="12.5" data-fk="eggs" data-fd="p"></td>
+            <td><input type="number" step="0.5" min="0" value="0.7" data-fk="eggs" data-fd="c"></td>
+            <td><input type="number" step="0.5" min="0" value="9.5" data-fk="eggs" data-fd="f"></td>
+            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="eggs" data-fd="fib"></td></tr>
+          <tr><th>Morčacie prsia</th>
+            <td><input type="number" step="1" min="0" value="157" data-fk="turkey" data-fd="kcal"></td>
+            <td><input type="number" step="0.5" min="0" value="30.0" data-fk="turkey" data-fd="p"></td>
+            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="turkey" data-fd="c"></td>
+            <td><input type="number" step="0.5" min="0" value="3.5" data-fk="turkey" data-fd="f"></td>
+            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="turkey" data-fd="fib"></td></tr>
+          <tr><th>Losos</th>
+            <td><input type="number" step="1" min="0" value="208" data-fk="salmon" data-fd="kcal"></td>
+            <td><input type="number" step="0.5" min="0" value="20.0" data-fk="salmon" data-fd="p"></td>
+            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="salmon" data-fd="c"></td>
+            <td><input type="number" step="0.5" min="0" value="13.0" data-fk="salmon" data-fd="f"></td>
+            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="salmon" data-fd="fib"></td></tr>
           <tr><th>Ovos (suché vločky)</th>
             <td><input type="number" step="1" min="0" value="380" data-fk="oats" data-fd="kcal"></td>
             <td><input type="number" step="0.5" min="0" value="13.0" data-fk="oats" data-fd="p"></td>
             <td><input type="number" step="0.5" min="0" value="60.0" data-fk="oats" data-fd="c"></td>
             <td><input type="number" step="0.5" min="0" value="7.0" data-fk="oats" data-fd="f"></td>
             <td><input type="number" step="0.5" min="0" value="10.0" data-fk="oats" data-fd="fib"></td></tr>
+          <tr><th>Zemiaky</th>
+            <td><input type="number" step="1" min="0" value="77" data-fk="potatoes" data-fd="kcal"></td>
+            <td><input type="number" step="0.5" min="0" value="2.0" data-fk="potatoes" data-fd="p"></td>
+            <td><input type="number" step="0.5" min="0" value="17.0" data-fk="potatoes" data-fd="c"></td>
+            <td><input type="number" step="0.5" min="0" value="0.1" data-fk="potatoes" data-fd="f"></td>
+            <td><input type="number" step="0.5" min="0" value="2.2" data-fk="potatoes" data-fd="fib"></td></tr>
+          <tr><th>Brokolica</th>
+            <td><input type="number" step="1" min="0" value="34" data-fk="broccoli" data-fd="kcal"></td>
+            <td><input type="number" step="0.5" min="0" value="2.8" data-fk="broccoli" data-fd="p"></td>
+            <td><input type="number" step="0.5" min="0" value="7.0" data-fk="broccoli" data-fd="c"></td>
+            <td><input type="number" step="0.5" min="0" value="0.4" data-fk="broccoli" data-fd="f"></td>
+            <td><input type="number" step="0.5" min="0" value="2.6" data-fk="broccoli" data-fd="fib"></td></tr>
+          <tr><th>Paprika</th>
+            <td><input type="number" step="1" min="0" value="31" data-fk="pepper" data-fd="kcal"></td>
+            <td><input type="number" step="0.5" min="0" value="1.0" data-fk="pepper" data-fd="p"></td>
+            <td><input type="number" step="0.5" min="0" value="6.0" data-fk="pepper" data-fd="c"></td>
+            <td><input type="number" step="0.5" min="0" value="0.3" data-fk="pepper" data-fd="f"></td>
+            <td><input type="number" step="0.5" min="0" value="2.1" data-fk="pepper" data-fd="fib"></td></tr>
+          <tr><th>Kyslá kapusta</th>
+            <td><input type="number" step="1" min="0" value="19" data-fk="sauerkraut" data-fd="kcal"></td>
+            <td><input type="number" step="0.5" min="0" value="0.9" data-fk="sauerkraut" data-fd="p"></td>
+            <td><input type="number" step="0.5" min="0" value="4.3" data-fk="sauerkraut" data-fd="c"></td>
+            <td><input type="number" step="0.5" min="0" value="0.1" data-fk="sauerkraut" data-fd="f"></td>
+            <td><input type="number" step="0.5" min="0" value="2.9" data-fk="sauerkraut" data-fd="fib"></td></tr>
           <tr><th>Lesné ovocie (čučoriedky/maliny)</th>
             <td><input type="number" step="1" min="0" value="50" data-fk="berries" data-fd="kcal"></td>
             <td><input type="number" step="0.5" min="0" value="0.7" data-fk="berries" data-fd="p"></td>
             <td><input type="number" step="0.5" min="0" value="12.0" data-fk="berries" data-fd="c"></td>
             <td><input type="number" step="0.5" min="0" value="0.3" data-fk="berries" data-fd="f"></td>
             <td><input type="number" step="0.5" min="0" value="3.0" data-fk="berries" data-fd="fib"></td></tr>
+          <tr><th>Jablko</th>
+            <td><input type="number" step="1" min="0" value="52" data-fk="apple" data-fd="kcal"></td>
+            <td><input type="number" step="0.5" min="0" value="0.3" data-fk="apple" data-fd="p"></td>
+            <td><input type="number" step="0.5" min="0" value="14.0" data-fk="apple" data-fd="c"></td>
+            <td><input type="number" step="0.5" min="0" value="0.2" data-fk="apple" data-fd="f"></td>
+            <td><input type="number" step="0.5" min="0" value="2.4" data-fk="apple" data-fd="fib"></td></tr>
           <tr><th>Vlašské orechy</th>
             <td><input type="number" step="1" min="0" value="654" data-fk="walnuts" data-fd="kcal"></td>
             <td><input type="number" step="0.5" min="0" value="15.0" data-fk="walnuts" data-fd="p"></td>
@@ -938,171 +507,23 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
             <td><input type="number" step="0.5" min="0" value="42.0" data-fk="chia" data-fd="c"></td>
             <td><input type="number" step="0.5" min="0" value="31.0" data-fk="chia" data-fd="f"></td>
             <td><input type="number" step="0.5" min="0" value="34.0" data-fk="chia" data-fd="fib"></td></tr>
-          <tr><th>Ľanové semienka (mleté)</th>
-            <td><input type="number" step="1" min="0" value="534" data-fk="flax" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="18.0" data-fk="flax" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="29.0" data-fk="flax" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="42.0" data-fk="flax" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="27.0" data-fk="flax" data-fd="fib"></td></tr>
-          <tr><th>Vajcia (celé)</th>
-            <td><input type="number" step="1" min="0" value="143" data-fk="eggs" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="12.5" data-fk="eggs" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.7" data-fk="eggs" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="9.5" data-fk="eggs" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="eggs" data-fd="fib"></td></tr>
-          <tr><th>Vaječné bielky</th>
-            <td><input type="number" step="1" min="0" value="52" data-fk="eggwhite" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="11.0" data-fk="eggwhite" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.7" data-fk="eggwhite" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.2" data-fk="eggwhite" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="eggwhite" data-fd="fib"></td></tr>
-          <tr><th>Kuracie prsia</th>
-            <td><input type="number" step="1" min="0" value="165" data-fk="chicken" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="31.0" data-fk="chicken" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="chicken" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="3.6" data-fk="chicken" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="chicken" data-fd="fib"></td></tr>
-          <tr><th>Morčacie prsia</th>
-            <td><input type="number" step="1" min="0" value="157" data-fk="turkey" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="30.0" data-fk="turkey" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="turkey" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="3.5" data-fk="turkey" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="turkey" data-fd="fib"></td></tr>
-          <tr><th>Chudé hovädzie (roštenka / steak)</th>
-            <td><input type="number" step="1" min="0" value="180" data-fk="beef" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="27.0" data-fk="beef" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="beef" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="8.0" data-fk="beef" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="beef" data-fd="fib"></td></tr>
-          <tr><th>Losos</th>
-            <td><input type="number" step="1" min="0" value="208" data-fk="salmon" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="20.0" data-fk="salmon" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="salmon" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="13.0" data-fk="salmon" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="salmon" data-fd="fib"></td></tr>
-          <tr><th>Sardinky v olivovom oleji (odkvapkané)</th>
-            <td><input type="number" step="1" min="0" value="208" data-fk="sardines" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="25.0" data-fk="sardines" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="sardines" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="11.0" data-fk="sardines" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="sardines" data-fd="fib"></td></tr>
-          <tr><th>Tuniak vo vlastnej šťave (odkvapkaný)</th>
-            <td><input type="number" step="1" min="0" value="116" data-fk="tuna" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="26.0" data-fk="tuna" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="tuna" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="1.0" data-fk="tuna" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="tuna" data-fd="fib"></td></tr>
-          <tr><th>Biele ryby (treska / filé)</th>
-            <td><input type="number" step="1" min="0" value="82" data-fk="cod" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="18.0" data-fk="cod" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="cod" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.7" data-fk="cod" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="cod" data-fd="fib"></td></tr>
-          <tr><th>Zemiaky</th>
-            <td><input type="number" step="1" min="0" value="77" data-fk="potatoes" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="2.0" data-fk="potatoes" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="17.0" data-fk="potatoes" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.1" data-fk="potatoes" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="2.2" data-fk="potatoes" data-fd="fib"></td></tr>
-          <tr><th>Ryža (uvarená)</th>
-            <td><input type="number" step="1" min="0" value="130" data-fk="rice" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="2.7" data-fk="rice" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="28.0" data-fk="rice" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.3" data-fk="rice" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.4" data-fk="rice" data-fd="fib"></td></tr>
-          <tr><th>Brokolica</th>
-            <td><input type="number" step="1" min="0" value="34" data-fk="broccoli" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="2.8" data-fk="broccoli" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="7.0" data-fk="broccoli" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.4" data-fk="broccoli" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="2.6" data-fk="broccoli" data-fd="fib"></td></tr>
-          <tr><th>Paprika</th>
-            <td><input type="number" step="1" min="0" value="31" data-fk="pepper" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="1.0" data-fk="pepper" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="6.0" data-fk="pepper" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.3" data-fk="pepper" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="2.1" data-fk="pepper" data-fd="fib"></td></tr>
-          <tr><th>Zeleninová zmes (cuketa, paprika, paradajka, listová)</th>
-            <td><input type="number" step="1" min="0" value="20" data-fk="vegmix" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="1.0" data-fk="vegmix" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="4.0" data-fk="vegmix" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.2" data-fk="vegmix" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="1.5" data-fk="vegmix" data-fd="fib"></td></tr>
-          <tr><th>Kyslá kapusta</th>
-            <td><input type="number" step="1" min="0" value="19" data-fk="sauerkraut" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="0.9" data-fk="sauerkraut" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="4.3" data-fk="sauerkraut" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.1" data-fk="sauerkraut" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="2.9" data-fk="sauerkraut" data-fd="fib"></td></tr>
-          <tr><th>Kimchi</th>
-            <td><input type="number" step="1" min="0" value="24" data-fk="kimchi" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="1.7" data-fk="kimchi" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="4.0" data-fk="kimchi" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.5" data-fk="kimchi" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="2.4" data-fk="kimchi" data-fd="fib"></td></tr>
           <tr><th>Extra panenský olivový olej (EVOO)</th>
             <td><input type="number" step="1" min="0" value="884" data-fk="evoo" data-fd="kcal"></td>
             <td><input type="number" step="0.5" min="0" value="0.0" data-fk="evoo" data-fd="p"></td>
             <td><input type="number" step="0.5" min="0" value="0.0" data-fk="evoo" data-fd="c"></td>
             <td><input type="number" step="0.5" min="0" value="100.0" data-fk="evoo" data-fd="f"></td>
             <td><input type="number" step="0.5" min="0" value="0.0" data-fk="evoo" data-fd="fib"></td></tr>
-          <tr><th>Kefír (2 %)</th>
-            <td><input type="number" step="1" min="0" value="51" data-fk="kefir" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="3.4" data-fk="kefir" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="4.5" data-fk="kefir" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="1.9" data-fk="kefir" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="kefir" data-fd="fib"></td></tr>
-          <tr><th>Tvaroh nízkotučný (cottage)</th>
-            <td><input type="number" step="1" min="0" value="98" data-fk="cottage" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="11.0" data-fk="cottage" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="3.4" data-fk="cottage" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="4.3" data-fk="cottage" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="cottage" data-fd="fib"></td></tr>
-          <tr><th>Jablko</th>
-            <td><input type="number" step="1" min="0" value="52" data-fk="apple" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="0.3" data-fk="apple" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="14.0" data-fk="apple" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.2" data-fk="apple" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="2.4" data-fk="apple" data-fd="fib"></td></tr>
-          <tr><th>Banán</th>
-            <td><input type="number" step="1" min="0" value="89" data-fk="banana" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="1.1" data-fk="banana" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="23.0" data-fk="banana" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.3" data-fk="banana" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="2.6" data-fk="banana" data-fd="fib"></td></tr>
-          <tr><th>Pizza cesto (domáce)</th>
-            <td><input type="number" step="1" min="0" value="250" data-fk="dough" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="8.0" data-fk="dough" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="50.0" data-fk="dough" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="2.5" data-fk="dough" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="2.0" data-fk="dough" data-fd="fib"></td></tr>
-          <tr><th>Paradajková omáčka (passata)</th>
-            <td><input type="number" step="1" min="0" value="35" data-fk="sauce" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="1.5" data-fk="sauce" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="6.0" data-fk="sauce" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="0.3" data-fk="sauce" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="1.5" data-fk="sauce" data-fd="fib"></td></tr>
-          <tr><th>Mozzarella</th>
-            <td><input type="number" step="1" min="0" value="280" data-fk="mozz" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="18.0" data-fk="mozz" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="3.1" data-fk="mozz" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="22.0" data-fk="mozz" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="mozz" data-fd="fib"></td></tr>
-          <tr><th>Prosciutto / kvalitná šunka</th>
-            <td><input type="number" step="1" min="0" value="250" data-fk="prosciutto" data-fd="kcal"></td>
-            <td><input type="number" step="0.5" min="0" value="26.0" data-fk="prosciutto" data-fd="p"></td>
-            <td><input type="number" step="0.5" min="0" value="0.5" data-fk="prosciutto" data-fd="c"></td>
-            <td><input type="number" step="0.5" min="0" value="16.0" data-fk="prosciutto" data-fd="f"></td>
-            <td><input type="number" step="0.5" min="0" value="0.0" data-fk="prosciutto" data-fd="fib"></td></tr>
-        </tbody>
-      </table>
-    </div>
+          </tbody>
+        </table>
+      </div>
+    </details>
   </section>
 
-  <p class="foot">Hodnoty potravín sú priemerné tabuľkové hodnoty na 100 g. Pri výrobkoch, kde sa obsah výrazne líši (skyr, kefír, tvaroh, mozzarella, šunka, pizza cesto, konzervované ryby) platí: <b>hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</b><br>
-  Aplikácia je jediný HTML súbor bez servera a bez internetu. Všetky recepty, gramáže a makrá sú priamo v HTML, JavaScript len prepočítava.</p>
+  <p class="foot">Hodnoty potravín sú priemerné tabuľkové hodnoty na 100 g. Pri výrobkoch, kde sa obsah výrazne líši (skyr, kefír, tvaroh, šunka, konzervované ryby), platí: <b>hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku.</b><br>
+  Jediný HTML súbor bez servera a bez internetu. Všetky jedlá, gramáže a makrá sú priamo v HTML, JavaScript len prepočítava.</p>
 
 </div>
+<script>window.__STD={kcal:2300,protein:196,fat:77,carbs:206,pPerKg:2.3,fPerKg:0.9,kg:85};</script>
 <script>
 (function(){
 "use strict";
@@ -1111,14 +532,9 @@ var $$=function(s,r){return Array.prototype.slice.call((r||document).querySelect
 var foods=$$(".food");
 var MEALS={};
 $$(".meal").forEach(function(m){MEALS[m.dataset.mk]=$$(".food",m);});
-var SUN=["sun-break","sun-lunch","sun-snack","pizza"];
-var DAYS={
- A:[["a-break","a-lunch","a-snack","a-din1"],["a-break","a-lunch","a-snack","a-din2"],["a-break","a-lunch","a-snack","a-din3"],
-    ["a-break","a-lunch","a-snack","a-din1"],["a-break","a-lunch","a-snack","a-din2"],["a-break","a-lunch","a-snack","a-din3"],SUN],
- B:[["b-break","b-lunch","b-snack","b-din1"],["b-break","b-lunch","b-snack","b-din2"],["b-break","b-lunch","b-snack","b-din3"],
-    ["b-break","b-lunch","b-snack","b-din1"],["b-break","b-lunch","b-snack","b-din2"],["b-break","b-lunch","b-snack","b-din3"],SUN]
-};
-var DEF={kcal:2300,p:200,c:220,f:75,fib:35};
+var DAY=["break","lunch","snack","dinner"];
+var STD=window.__STD;
+var DEF={kcal:STD.kcal,p:STD.protein,c:STD.carbs,f:STD.fat,fib:35};
 var M=["kcal","p","c","f","fib"];
 
 function z(){return {kcal:0,p:0,c:0,f:0,fib:0};}
@@ -1127,10 +543,18 @@ function grams(el){var v=parseFloat(el.querySelector(".gn").value);return (isFin
 function macros(el,g){var d=el.dataset,k=g/100;return {kcal:(+d.kcal||0)*k,p:(+d.p||0)*k,c:(+d.c||0)*k,f:(+d.f||0)*k,fib:(+d.fib||0)*k};}
 function fmt(x,dec){dec=dec||0;var p=Math.pow(10,dec);return (Math.round(x*p)/p).toFixed(dec);}
 function setGrams(el,g,step5){g=Math.max(0,step5?Math.round(g/5)*5:Math.round(g));el.querySelector(".rg").value=g;el.querySelector(".gn").value=g;}
+function qty(g){if(g>=1000){var k=(g/1000);return (Math.round(k*100)/100).toFixed(2).replace(".",",")+" kg";}return Math.round(g)+" g";}
 
 function mealTotals(mk){var t=z();(MEALS[mk]||[]).forEach(function(el){add(t,macros(el,grams(el)));});return t;}
-function dayTotals(keys){var t=z();keys.forEach(function(k){add(t,mealTotals(k));});return t;}
+function dayTotals(){var t=z();DAY.forEach(function(k){add(t,mealTotals(k));});return t;}
 function readTargets(){return {kcal:+$("#tKcal").value||0,p:+$("#tP").value||0,c:+$("#tC").value||0,f:+$("#tF").value||0,fib:+$("#tFib").value||0};}
+function days(){var v=parseInt($("#days").value,10);return (isFinite(v)&&v>0&&v<=14)?v:7;}
+
+function stdMacros(kcal){
+  var p=STD.protein, f=STD.fat, c=Math.round((kcal-p*4-f*9)/4);
+  if(c<0){ p=Math.max(60,Math.round(kcal*0.35/4)); f=Math.max(30,Math.round(kcal*0.25/9)); c=Math.max(0,Math.round((kcal-p*4-f*9)/4)); }
+  return {p:p,c:c,f:f};
+}
 
 function recalc(){
   foods.forEach(function(el){
@@ -1143,24 +567,11 @@ function recalc(){
     var t=mealTotals(mk);
     el.innerHTML="<b>"+fmt(t.kcal)+" kcal</b> · "+fmt(t.p)+" g P · "+fmt(t.c)+" g C · "+fmt(t.f)+" g F · "+fmt(t.fib)+" g vlákniny";
   });
-  Object.keys(DAYS).forEach(function(wk){
-    var wt=z();
-    DAYS[wk].forEach(function(keys,i){
-      var t=dayTotals(keys); add(wt,t);
-      var row=$('tr[data-wk="'+wk+'"][data-day="'+i+'"]');
-      if(row){M.forEach(function(k){var c=row.querySelector('[data-c="'+k+'"]');if(c)c.textContent=fmt(t[k]);});}
-    });
-    var tot=$('[data-wktot="'+wk+'"]');
-    if(tot){M.forEach(function(k){var c=tot.querySelector('[data-c="'+k+'"]');if(c)c.textContent=fmt(wt[k]);});}
-    var avg=$('[data-wkavg="'+wk+'"]');
-    if(avg){avg.textContent="Ø "+fmt(wt.kcal/7)+" kcal/den · "+fmt(wt.p/7)+" g P · "+fmt(wt.c/7)+" g C · "+fmt(wt.f/7)+" g F · "+fmt(wt.fib/7)+" g vlákniny";}
-  });
-  summary();
+  shopping(); summary();
 }
 
 function summary(){
-  var v=$("#daySelect").value, wk=v.charAt(0), i=parseInt(v.slice(2),10);
-  var t=dayTotals(DAYS[wk][i]), T=readTargets();
+  var t=dayTotals(), T=readTargets(), n=days();
   M.forEach(function(k){
     $$('[data-out="'+k+'"]').forEach(function(o){o.textContent=fmt(t[k]);});
     var bar=$('[data-bar="'+k+'"]');
@@ -1168,83 +579,127 @@ function summary(){
     var d=$('[data-diff="'+k+'"]');
     if(d){var diff=t[k]-T[k];
       d.textContent=(diff>=0?"+":"")+fmt(diff)+" ("+(T[k]?Math.round(diff/T[k]*100):0)+" %)";
-      d.className=(Math.abs(diff)<=T[k]*0.07)?"pos":"neg";}
+      d.className=(T[k]&&Math.abs(diff)<=T[k]*0.05)?"pos":"neg";}
+    var w=$('[data-wk="'+k+'"]');
+    if(w) w.textContent=fmt(t[k]*n);
   });
+  var wd=$('[data-wk="days"]'); if(wd) wd.textContent=n;
+  var wc=$(".wkcol"); if(wc) wc.textContent="NA "+n+" DNÍ";
   return t;
 }
 
-/* ---------- prisposobenie porcii ---------- */
-var ALLDAYS=[];
-["A","B"].forEach(function(wk){DAYS[wk].forEach(function(keys){ALLDAYS.push(keys);});});
-
-function dayAvg(mc,mf){
-  var acc=z(), ck=0, fk=0, n=0;
-  ALLDAYS.forEach(function(keys){
-    var t=z();
-    keys.forEach(function(mk){(MEALS[mk]||[]).forEach(function(el){
-      var cat=el.dataset.cat, mul=(cat==="carb")?mc:((cat==="fat")?mf:1);
-      var mm=macros(el,grams(el)*mul); add(t,mm);
-      if(cat==="carb") ck+=mm.kcal; else if(cat==="fat") fk+=mm.kcal;
-    });});
-    add(acc,t); n++;
+/* ---------- nakupny zoznam ---------- */
+function shopping(){
+  var per={};
+  DAY.forEach(function(mk){(MEALS[mk]||[]).forEach(function(el){
+    var fk=el.dataset.fk; per[fk]=(per[fk]||0)+grams(el);
+  });});
+  var n=days();
+  $$(".shop-row").forEach(function(tr){
+    var fk=tr.dataset.fk, d=per[fk]||0;
+    $(".dose",tr).textContent=qty(d)+" / deň";
+    $(".sweek",tr).textContent=qty(d*n);
   });
-  return {avg:{kcal:acc.kcal/n,p:acc.p/n,c:acc.c/n,f:acc.f/n,fib:acc.fib/n}, ck:ck/n, fk:fk/n};
+}
+function shopText(){
+  var out=["NÁKUPNÝ ZOZNAM ("+days()+" dní) – jedálniček A/B"], cur="";
+  $$(".shop-row").forEach(function(tr){
+    var grp=$("[data-shopgrp='"+tr.dataset.grp+"']");
+    if(grp && grp.textContent!==cur){cur=grp.textContent;out.push("");out.push("— "+cur+" —");}
+    out.push("• "+$(".sname",tr).textContent+" – "+$(".sweek",tr).textContent+"  ("+$(".dose",tr).textContent.replace(" / deň","")+" denne)");
+  });
+  return out.join("\n");
+}
+function copyShop(){
+  var txt=shopText();
+  $("#shareBox").value=txt;
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(function(){msg("Nákupný zoznam skopírovaný do schránky.","ok");},
+      function(){msg("Skopíruj zoznam z poľa v sekcii „Export / kopírovanie“ dole.","warn");});
+  } else { msg("Skopíruj zoznam z poľa v sekcii „Export / kopírovanie“ dole.","warn"); }
 }
 
+/* ---------- prisposobenie porcii ---------- */
+function dayAt(mc,mf){
+  var t=z(), carbC=0, fatF=0;
+  DAY.forEach(function(mk){(MEALS[mk]||[]).forEach(function(el){
+    var cat=el.dataset.cat, mul=(cat==="carb")?mc:((cat==="fat")?mf:1);
+    var mm=macros(el,grams(el)*mul); add(t,mm);
+    if(cat==="carb") carbC+=mm.c; else if(cat==="fat") fatF+=mm.f;
+  });});
+  return {t:t,carbC:carbC,fatF:fatF};
+}
+function clampv(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+/* Porcie sa prisposobia cielovym sacharidom a tukom (najprv sacharidove prilohy, potom tuky).
+   Bielkoviny, zelenina a fermentovane potraviny sa nemenia. Kcal vyjde z maker. */
 function adapt(){
   var T=readTargets();
-  if(!T.kcal){msg("Zadaj denný kalorický cieľ (kcal).","warn");return;}
-  var target=T.kcal, mc=1, mf=1, r=dayAvg(1,1), i;
+  if(!T.kcal){msg("Zadaj celkový denný kalorický cieľ.","warn");return;}
+  var mc=1, mf=1, r=dayAt(1,1), i;
   for(i=0;i<200;i++){
-    r=dayAvg(mc,mf);
-    var d=target-r.avg.kcal;
-    if(Math.abs(d)<3) break;
+    r=dayAt(mc,mf);
+    var dc=T.c-r.t.c, df=T.f-r.t.f;
+    if(Math.abs(dc)<1.5 && Math.abs(df)<1.5) break;
     var nc=mc, nf=mf;
-    if(r.ck>0) nc=mc*(1+(d*0.75)/r.ck);
-    if(r.fk>0) nf=mf*(1+(d*0.25)/r.fk);
-    nc=Math.min(2.8,Math.max(0.3,nc));
-    nf=Math.min(2.4,Math.max(0.25,nf));
+    if(r.carbC>0.5) nc=clampv(mc*(1+dc/r.carbC),0.3,2.8);
+    if(r.fatF>0.5) nf=clampv(mf*(1+df/r.fatF),0.25,2.4);
     if(Math.abs(nc-mc)<0.0005 && Math.abs(nf-mf)<0.0005){mc=nc;mf=nf;break;}
     mc=nc; mf=nf;
   }
-  r=dayAvg(mc,mf);
+  r=dayAt(mc,mf);
   foods.forEach(function(el){
     var cat=el.dataset.cat, mul=(cat==="carb")?mc:((cat==="fat")?mf:1);
     if(mul===1) return;
     setGrams(el,grams(el)*mul,true);
   });
   recalc();
-  var day=summary();
-  var txt="Prispôsobené na "+fmt(target)+" kcal → priemerný deň má "+fmt(r.avg.kcal)+" kcal, "
-    +fmt(r.avg.p)+" g P, "+fmt(r.avg.c)+" g C, "+fmt(r.avg.f)+" g F, "+fmt(r.avg.fib)+" g vlákniny."
-    +" Zvolený deň: "+fmt(day.kcal)+" kcal, "+fmt(day.p)+" g P, "+fmt(day.c)+" g C, "+fmt(day.f)+" g F.";
-  var diff=r.avg.kcal-target;
-  if(Math.abs(diff)>40){
-    txt+=" Rozdiel "+fmt(diff)+" kcal – sacharidy a tuky už narazili na limity, bielkoviny, zelenina a fermentované potraviny zostali stabilné.";
-    msg(txt,"warn");
-  } else { msg(txt,"ok"); }
+  var t=summary();
+  var txt="Porcie prispôsobené: deň má "+fmt(t.kcal)+" kcal, "+fmt(t.p)+" g P, "+fmt(t.c)+" g C, "+fmt(t.f)
+    +" g F, "+fmt(t.fib)+" g vlákniny. Cieľ je "+fmt(T.kcal)+" kcal, "+fmt(T.p)+" g P, "+fmt(T.c)+" g C, "+fmt(T.f)
+    +" g F. Menené boli sacharidové prílohy a tuky, bielkoviny a zelenina zostali rovnaké.";
+  var dc2=t.c-T.c, df2=t.f-T.f, dk=t.kcal-T.kcal;
+  var off = Math.abs(dc2)>8 || Math.abs(df2)>8 || Math.abs(dk)>60;
+  if(off) txt+=" Ostávajúci rozdiel: "+fmt(dk)+" kcal, "+fmt(dc2)+" g C, "+fmt(df2)+" g F (porcie dosiahli limity).";
+  msg(txt, off?"warn":"ok");
+}
+
+/* ---------- kalorie -> makra podla noriem ---------- */
+function applyStandard(){
+  var T=readTargets(); if(!T.kcal) return;
+  var s=stdMacros(T.kcal);
+  $("#tP").value=s.p; $("#tC").value=s.c; $("#tF").value=s.f;
+  summary();
+}
+function stdNote(){
+  var T=readTargets(), s=stdMacros(T.kcal||2300);
+  var pp=String(STD.pPerKg).replace(".",","), ff=String(STD.fPerKg).replace(".",",");
+  $("#stdNote").innerHTML="Norma pre "+T.kcal+" kcal: bielkoviny <b>"+pp+" g/kg</b> cieľovej hmotnosti ("+STD.kg
+    +" kg) = <b>"+s.p+" g</b> · tuky <b>"+ff+" g/kg</b> = <b>"+s.f+" g</b> · zvyšok sacharidy = <b>"+s.c
+    +" g</b>. Makrá môžeš kedykoľvek prepísať ručne. Ak po prispôsobení porcií chýba viac ako ~100 kcal, pomôže upraviť bielkovinové potraviny alebo ovocie ručne – zeleninu a bielkoviny appka necháva stabilné.";
 }
 
 /* ---------- reset / export / share ---------- */
 function reset(){
   foods.forEach(function(el){setGrams(el,+el.dataset.base||0);});
   $("#tKcal").value=DEF.kcal;$("#tP").value=DEF.p;$("#tC").value=DEF.c;$("#tF").value=DEF.f;$("#tFib").value=DEF.fib;
+  $("#days").value=7; $("#autoMacro").checked=true;
   if(location.hash) history.replaceState(null,"",location.pathname);
   $("#shareBox").value="";
-  recalc(); msg("Resetované na základný plán (pôvodné gramáže aj ciele).","ok");
+  $$("tr.shop-row").forEach(function(tr){tr.classList.remove("done");$(".chk",tr).checked=false;});
+  recalc(); stdNote(); msg("Resetované na základný plán.","ok");
 }
 function snapshot(){
   var T=readTargets(), items=[];
   foods.forEach(function(el,i){items.push({i:i,name:el.dataset.name,grams:Math.round(grams(el))});});
-  return {targets:T,items:items};
+  return {targets:T,days:days(),items:items};
 }
 function copySetup(){
   var txt=JSON.stringify(snapshot(),null,1);
   $("#shareBox").value=txt;
   if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(txt).then(function(){msg("Nastavenie skopírované do schránky (aj do poľa nižšie).","ok");},
-      function(){msg("Skopíruj text z poľa nižšie (schránka nie je offline dostupná).","warn");});
-  } else { msg("Skopíruj text z poľa nižšie.","warn"); }
+    navigator.clipboard.writeText(txt).then(function(){msg("Nastavenie skopírované do schránky.","ok");},
+      function(){msg("Skopíruj text z poľa v sekcii „Export / kopírovanie“ dole.","warn");});
+  } else { msg("Skopíruj text z poľa v sekcii „Export / kopírovanie“ dole.","warn"); }
 }
 function exportJson(){
   var txt=JSON.stringify(snapshot(),null,1);
@@ -1253,32 +708,34 @@ function exportJson(){
     var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="jedalnicek-nastavenie.json";
     document.body.appendChild(a);a.click();document.body.removeChild(a);
     msg("JSON súbor stiahnutý (jedalnicek-nastavenie.json).","ok");
-  }catch(e){ $("#shareBox").value=txt; msg("Export súboru nie je podporovaný – skopíruj JSON z poľa nižšie.","warn"); }
+  }catch(e){ $("#shareBox").value=txt; msg("Export nie je podporovaný – skopíruj JSON z poľa.","warn"); }
 }
 function shareUrl(){
   var g=[],T=readTargets();
   foods.forEach(function(el){g.push(Math.round(grams(el)));});
-  var hash="#p="+g.join(".")+"&t="+[T.kcal,T.p,T.c,T.f,T.fib].join(".");
+  var hash="#p="+g.join(".")+"&t="+[T.kcal,T.p,T.c,T.f,T.fib].join(".")+"&d="+days();
   try{history.replaceState(null,"",location.pathname+hash);}catch(e){location.hash=hash;}
   var url=location.href.split("#")[0]+hash;
   if(navigator.clipboard&&navigator.clipboard.writeText){
-    navigator.clipboard.writeText(url).then(function(){msg("Shareable URL vytvorená a skopírovaná do schránky.","ok");},
-      function(){msg("URL je v adresnom riadku – skopíruj ju odtiaľ.","warn");});
-  } else { msg("URL je v adresnom riadku – skopíruj ju odtiaľ.","warn"); }
+    navigator.clipboard.writeText(url).then(function(){msg("Odkaz s nastavením skopírovaný do schránky.","ok");},
+      function(){msg("Odkaz je v adresnom riadku – skopíruj ho odtiaľ.","warn");});
+  } else { msg("Odkaz je v adresnom riadku – skopíruj ho odtiaľ.","warn"); }
 }
 function msg(t,cls){var m=$("#msg");m.textContent=t;m.className=cls||"";}
 
 function applyHash(){
   var h=location.hash.replace(/^#/,"");
   if(!h) return;
-  var parts=h.split("&"), g=null, t=null;
+  var parts=h.split("&"), g=null, t=null, d=null;
   parts.forEach(function(p){
     if(p.indexOf("p=")===0) g=p.slice(2).split(".");
     if(p.indexOf("t=")===0) t=p.slice(2).split(".");
+    if(p.indexOf("d=")===0) d=p.slice(2);
   });
   if(g){foods.forEach(function(el,i){if(g[i]!==undefined&&g[i]!=="")setGrams(el,parseFloat(g[i]));});}
   if(t&&t.length>=5){$("#tKcal").value=t[0];$("#tP").value=t[1];$("#tC").value=t[2];$("#tF").value=t[3];$("#tFib").value=t[4];}
-  if(g||t) msg("Nastavenie načítané z URL.","ok");
+  if(d){var n=parseInt(d,10);if(isFinite(n)&&n>0&&n<=14)$("#days").value=n;}
+  if(g||t) msg("Nastavenie načítané z odkazu.","ok");
 }
 
 /* ---------- udalosti ---------- */
@@ -1289,14 +746,18 @@ function bindFood(el){
   gn.addEventListener("change",function(){var v=parseFloat(gn.value);if(!isFinite(v)||v<0)v=0;setGrams(el,v);recalc();});
 }
 foods.forEach(bindFood);
-["#tKcal","#tP","#tC","#tF","#tFib"].forEach(function(sel){var el=$(sel);if(el)el.addEventListener("input",summary);});
-$("#daySelect").addEventListener("change",summary);
+$("#tKcal").addEventListener("input",function(){ if($("#autoMacro").checked) applyStandard(); stdNote(); summary(); });
+["#tP","#tC","#tF","#tFib"].forEach(function(s){$(s).addEventListener("input",summary);});
+$("#autoMacro").addEventListener("change",function(){ if(this.checked){applyStandard();stdNote();} });
+$("#days").addEventListener("input",recalc);
 $("#btnAdapt").addEventListener("click",adapt);
+$("#btnStd").addEventListener("click",function(){applyStandard();stdNote();msg("Makrá prepočítané podľa noriem (2,3 g bielkovín a 0,9 g tuku na kg cieľovej hmotnosti).","ok");});
 $("#btnReset").addEventListener("click",reset);
 $("#btnCopy").addEventListener("click",copySetup);
 $("#btnExport").addEventListener("click",exportJson);
 $("#btnShare").addEventListener("click",shareUrl);
-
+$("#btnShop").addEventListener("click",copyShop);
+$$(".chk").forEach(function(c){c.addEventListener("change",function(){c.closest("tr").classList.toggle("done",c.checked);});});
 $$(".db input").forEach(function(inp){
   inp.addEventListener("input",function(){
     var fk=inp.dataset.fk, fd=inp.dataset.fd, v=parseFloat(inp.value);
@@ -1306,12 +767,13 @@ $$(".db input").forEach(function(inp){
   });
 });
 
-window.__jedalnicek={recalc:recalc,summary:summary,adapt:adapt,reset:reset,snapshot:snapshot,
-  setGrams:function(mk,i,g){setGrams(MEALS[mk][i],g);recalc();},
-  mealTotals:mealTotals,dayTotals:dayTotals,days:DAYS,meals:MEALS,foods:foods};
+window.__jedalnicek={recalc:recalc,summary:summary,adapt:adapt,reset:reset,snapshot:snapshot,shopping:shopping,
+  shopText:shopText,dayTotals:dayTotals,mealTotals:mealTotals,meals:MEALS,foods:foods,
+  setGrams:function(mk,i,g){setGrams(MEALS[mk][i],g);recalc();}};
 
 applyHash();
 recalc();
+stdNote();
 })();
 </script>
 </body>
