@@ -120,12 +120,16 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
 
   <header class="hero">
     <h1>Jedálniček – jeden deň, 4 jedlá, každý deň rovnaké</h1>
-    <p>Muž 36 r., 188 cm, ~110 kg → cieľ ~85 kg, atletická postava. 4 jedlá denne, tie isté 7 dní v týždni, varenie 2× týždenne.</p>
+    <p>Muž 36 r., 188 cm, <span id="currentWeightLabel">110</span> kg → cieľ ~85 kg, atletická postava. 4 jedlá denne, tie isté 7 dní v týždni, varenie 2× týždenne.</p>
     <div class="chips"><span class="chip">denný cieľ <span data-target="kcal">2300</span> kcal</span><span class="chip"><span data-target="p">196</span> g P</span><span class="chip"><span data-target="c">206</span> g C</span><span class="chip"><span data-target="f">77</span> g F</span><span class="chip"><span data-target="fib">35</span> g vlákniny</span><span class="chip">offline · jeden súbor</span></div>
   </header>
 
   <section class="card">
     <h2>Celkový denný príjem</h2>
+    <div class="goal-grid">
+      <div class="goal"><label for="bodyWeight">Aktuálna hmotnosť (kg)</label><input id="bodyWeight" type="number" inputmode="decimal" step="0.1" min="50" max="250" value="110"></div>
+    </div>
+    <p class="sub" id="weightNote">Kalórie sa pri zmene hmotnosti odhadom upravia. Používaj týždenný priemer rannej váhy, nie denné výkyvy.</p>
     <div class="kcalrow">
       <div class="kcalbox"><label for="tKcal">Celkové kalórie na deň (kcal)</label>
         <input class="big" id="tKcal" type="number" inputmode="numeric" step="25" min="1200" max="6000" value="2300"></div>
@@ -538,6 +542,28 @@ var STD=window.__STD;
 var DEF={kcal:STD.kcal,p:STD.protein,c:STD.carbs,f:STD.fat,fib:35};
 var M=["kcal","p","c","f","fib"];
 var STORAGE_KEY="jedalnicek.settings.v1", ready=false;
+// Odhad zmeny výdaja: pomer 3100 kcal k BMR 2100 pri 110 kg, 188 cm, 36 r.
+var WEIGHT_SLOPE=10*3100/2100;
+var weightAnchor={kg:110,kcal:2300};
+function validWeight(v){return typeof v==="number"&&isFinite(v)&&v>=50&&v<=250;}
+function weightNote(){
+  $("#currentWeightLabel").textContent=$("#bodyWeight").value.replace(".",",");
+  $("#weightNote").textContent="Odhad: východiskovo "+String(weightAnchor.kg).replace(".",",")+" kg / "+weightAnchor.kcal+" kcal; zmena približne "+WEIGHT_SLOPE.toFixed(1).replace(".",",")+" kcal na kg. Ručnou zmenou kalórií nastavíš nový východiskový bod. Používaj týždenný priemer váhy. Výdaj hodiniek aj tento model sú orientačné; príjem overuj podľa vývoja váhy. Pod 1 500 kcal automatika nejde.";
+}
+function reanchorWeight(){
+  var kg=+$("#bodyWeight").value,kcal=+$("#tKcal").value;
+  if(validWeight(kg)&&kcal>=1200&&kcal<=6000) weightAnchor={kg:kg,kcal:kcal};
+  weightNote();
+}
+function commitWeight(){
+  var value=$("#bodyWeight").value,kg=+value;
+  if(!value||!validWeight(kg)){msg("Zadaj hmotnosť od 50 do 250 kg. Kalórie ani porcie sa nezmenili.","warn");return;}
+  var estimated=weightAnchor.kcal+(kg-weightAnchor.kg)*WEIGHT_SLOPE;
+  $("#tKcal").value=Math.max(1500,Math.min(6000,Math.round(estimated/25)*25));
+  if($("#autoMacro").checked) applyStandard();
+  weightNote();commitTargets();
+  if(estimated<1500)msg("Výpočet dosiahol ochrannú hranicu 1 500 kcal; nejde o odporúčanie vhodného príjmu. Ďalšie znižovanie rieš individuálne, nie automaticky.","warn");
+}
 var dbInputs=$$(".db input");
 var originalNutrition=dbInputs.map(function(inp){return +inp.value;});
 function setNutrient(inp,v){
@@ -561,10 +587,16 @@ function restoreSettings(){
       if(state.nutrition) delete state.nutrition.chicken;
       $("#storageStatus").textContent="Staré porcie kuracieho boli orientačne prepočítané na surovú hmotnosť podľa bielkovín. Staré hodnoty hotového kuracieho boli nahradené hodnotami surového; skontroluj etiketu.";
     }
+    if(state.weight&&validWeight(state.weight.kg)){
+      $("#bodyWeight").value=state.weight.kg;
+      if(validWeight(state.weight.anchorKg)&&typeof state.weight.anchorKcal==="number"&&isFinite(state.weight.anchorKcal)&&state.weight.anchorKcal>=1200&&state.weight.anchorKcal<=6000)
+        weightAnchor={kg:state.weight.anchorKg,kcal:state.weight.anchorKcal};
+    }
     if(state.targets) ["kcal","p","c","f","fib"].forEach(function(k,i){
       var el=$(["#tKcal","#tP","#tC","#tF","#tFib"][i]),v=state.targets[k];
       if(typeof v==="number"&&isFinite(v)&&v>=+el.min&&v<=+el.max) el.value=v;
     });
+    if(!state.weight) weightAnchor={kg:110,kcal:+$("#tKcal").value};
     if(Number.isInteger(state.days)&&state.days>=1&&state.days<=14) $("#days").value=state.days;
     if(typeof state.autoMacro==="boolean") $("#autoMacro").checked=state.autoMacro;
     if(Array.isArray(state.items)) state.items.forEach(function(item){
@@ -729,6 +761,7 @@ function stdNote(){
 
 /* ---------- reset / export / share ---------- */
 function reset(){
+  $("#bodyWeight").value=110;weightAnchor={kg:110,kcal:DEF.kcal};weightNote();
   dbInputs.forEach(function(inp,i){setNutrient(inp,originalNutrition[i]);});
   foods.forEach(function(el){setGrams(el,+el.dataset.base||0);});
   $("#tKcal").value=DEF.kcal;$("#tP").value=DEF.p;$("#tC").value=DEF.c;$("#tF").value=DEF.f;$("#tFib").value=DEF.fib;
@@ -743,7 +776,7 @@ function snapshot(){
   foods.forEach(function(el,i){items.push({i:i,fk:el.dataset.fk,name:el.dataset.name,grams:Math.round(grams(el))});});
   var nutrition={};
   dbInputs.forEach(function(inp){var fk=inp.dataset.fk; if(!nutrition[fk])nutrition[fk]={}; nutrition[fk][inp.dataset.fd]=+inp.value;});
-  return {version:2,targets:T,days:days(),autoMacro:$("#autoMacro").checked,items:items,nutrition:nutrition,
+  return {version:2,weight:{kg:+$("#bodyWeight").value,anchorKg:weightAnchor.kg,anchorKcal:weightAnchor.kcal},targets:T,days:days(),autoMacro:$("#autoMacro").checked,items:items,nutrition:nutrition,
     bought:$$(".shop-row").filter(function(tr){return $(".chk",tr).checked;}).map(function(tr){return tr.dataset.fk;})};
 }
 function copySetup(){
@@ -766,7 +799,8 @@ function exportJson(){
 function shareUrl(){
   var g=[],T=readTargets();
   foods.forEach(function(el){g.push(Math.round(grams(el)));});
-  var hash="#v=2&p="+g.join(".")+"&t="+[T.kcal,T.p,T.c,T.f,T.fib].join(".")+"&d="+days();
+  var hash="#v=2&p="+g.join(".")+"&t="+[T.kcal,T.p,T.c,T.f,T.fib].join(".")+"&d="+days()
+    +"&w="+encodeURIComponent([$("#bodyWeight").value,weightAnchor.kg,weightAnchor.kcal].join(","));
   try{history.replaceState(null,"",location.pathname+hash);}catch(e){location.hash=hash;}
   var url=location.href.split("#")[0]+hash;
   if(navigator.clipboard&&navigator.clipboard.writeText){
@@ -782,6 +816,12 @@ function applyHash(){
   var parts=h.split("&"), g=null, t=null, d=null, version=1;
   parts.forEach(function(p){
     if(p==="v=2") version=2;
+    if(p.indexOf("w=")===0){
+      var weights;try{weights=decodeURIComponent(p.slice(2)).split(",").map(Number);}catch(e){weights=[];}
+      if(weights.length===3&&validWeight(weights[0])&&validWeight(weights[1])&&isFinite(weights[2])&&weights[2]>=1200&&weights[2]<=6000){
+        $("#bodyWeight").value=weights[0];weightAnchor={kg:weights[1],kcal:weights[2]};weightNote();
+      }
+    }
     if(p.indexOf("p=")===0) g=p.slice(2).split(".");
     if(p.indexOf("t=")===0) t=p.slice(2).split(".");
     if(p.indexOf("d=")===0) d=p.slice(2);
@@ -811,7 +851,8 @@ $("#tKcal").addEventListener("input",function(){
   if(this.value!==""&&isFinite(+this.value)&&+this.value>=+this.min&&+this.value<=+this.max&&$("#autoMacro").checked) applyStandard();
   stdNote();summary();
 });
-$("#tKcal").addEventListener("change",commitTargets);
+$("#tKcal").addEventListener("change",function(){commitTargets();reanchorWeight();});
+$("#bodyWeight").addEventListener("change",commitWeight);
 ["#tP","#tC","#tF","#tFib"].forEach(function(s){
   $(s).addEventListener("input",summary);
   $(s).addEventListener("change",commitTargets);
@@ -841,6 +882,8 @@ restoreSettings();
 applyHash();
 recalc();
 stdNote();
+
+weightNote();
 ready=true;
 window.addEventListener("hashchange",function(){applyHash();recalc();stdNote();});
 document.addEventListener("input",saveSettings);
