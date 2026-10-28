@@ -143,7 +143,9 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
       <button id="btnStd" class="ghost">Prepočítať makrá podľa noriem</button>
       <button id="btnReset" class="ghost">Resetovať na základný plán</button>
     </div>
-    <div id="msg"></div>
+    <p class="sub">Váženie: kuracie prsia po tepelnej úprave; mleté hovädzie surové (orientačné hodnoty, over podľa etikety); zemiaky a zelenina pred varením; vajcia bez škrupiny.</p>
+    <p class="sub" id="storageStatus" role="status">Nastavenia sa ukladajú iba v tomto prehliadači, nie na server. Vymazanie dát prehliadača ich odstráni; zálohu vytvor cez Export JSON.</p>
+    <div id="msg" role="status"></div>
   </section>
 
   <section class="card summary" id="summary">
@@ -224,8 +226,8 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
       <div class="mhead"><h3>2. Obed</h3><div class="msub">Kuracie prsia so zemiakmi a zeleninou – na 3 dni dopredu</div></div>
       <h4>Potraviny – gramáže a makrá (živé)</h4>
       <div class="foods">
-      <div class="food" data-fk="chicken" data-cat="protein" data-name="Kuracie prsia" data-kcal="165" data-p="31.0" data-c="0.0" data-f="3.6" data-fib="0.0" data-base="220">
-        <div class="frow"><span class="fname">Kuracie prsia</span><span class="fval">220 g</span></div>
+      <div class="food" data-fk="chicken" data-cat="protein" data-name="Kuracie prsia (po tepelnej úprave)" data-kcal="165" data-p="31.0" data-c="0.0" data-f="3.6" data-fib="0.0" data-base="220">
+        <div class="frow"><span class="fname">Kuracie prsia (po tepelnej úprave)</span><span class="fval">220 g</span></div>
         <div class="ctl"><input class="rg" type="range" min="0" max="600" step="1" value="220" aria-label="Kuracie prsia – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="220" aria-label="Kuracie prsia – gramy"></div>
         <div class="fm">363 kcal · 68.2 g P · 0.0 g C · 7.9 g F</div>
         
@@ -313,9 +315,9 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
       <div class="mhead"><h3>4. Večera</h3><div class="msub">Mleté hovädzie so zemiakmi a brokolicou – najjednoduchšia na prípravu</div></div>
       <h4>Potraviny – gramáže a makrá (živé)</h4>
       <div class="foods">
-      <div class="food" data-fk="beefmince" data-cat="protein" data-name="Mleté hovädzie (Lidl, ~15 % tuku)" data-kcal="250" data-p="18.0" data-c="0.0" data-f="20.0" data-fib="0.0" data-base="130">
-        <div class="frow"><span class="fname">Mleté hovädzie (Lidl, ~15 % tuku)</span><span class="fval">130 g</span></div>
-        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="130" aria-label="Mleté hovädzie (Lidl, ~15 % tuku) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="130" aria-label="Mleté hovädzie (Lidl, ~15 % tuku) – gramy"></div>
+      <div class="food" data-fk="beefmince" data-cat="protein" data-name="Mleté hovädzie (orientačne 20 % tuku, surové)" data-kcal="250" data-p="18.0" data-c="0.0" data-f="20.0" data-fib="0.0" data-base="130">
+        <div class="frow"><span class="fname">Mleté hovädzie (orientačne 20 % tuku, surové)</span><span class="fval">130 g</span></div>
+        <div class="ctl"><input class="rg" type="range" min="0" max="400" step="1" value="130" aria-label="Mleté hovädzie (orientačne 20 % tuku, surové) – gramáž"><input class="gn" type="number" min="0" max="2000" step="1" value="130" aria-label="Mleté hovädzie (orientačne 20 % tuku, surové) – gramy"></div>
         <div class="fm">325 kcal · 23.4 g P · 0.0 g C · 26.0 g F</div>
         <div class="note">Hodnoty sú orientačné – nahraď ich hodnotami z etikety konkrétneho výrobku (líšia sa podľa % tuku).</div>
       </div>
@@ -373,8 +375,8 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
         <thead><tr><th>Potravina</th><th>Dávka</th><th class="wkcol">NA 7 DNÍ</th></tr></thead>
         <tbody>
           <tr class="grp" data-shopgrp="maso"><td colspan="3">Mäso</td></tr>
-          <tr class="shop-row" data-fk="chicken" data-grp="maso"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Kuracie prsia</span></label></td><td class="dose">220 g / deň</td><td class="qty sweek">1,54 kg</td></tr>
-          <tr class="shop-row" data-fk="beefmince" data-grp="maso"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Mleté hovädzie (Lidl, ~15 % tuku)</span></label></td><td class="dose">130 g / deň</td><td class="qty sweek">910 g</td></tr>
+          <tr class="shop-row" data-fk="chicken" data-grp="maso"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Kuracie prsia (po tepelnej úprave)</span></label></td><td class="dose">220 g / deň</td><td class="qty sweek">1,54 kg</td></tr>
+          <tr class="shop-row" data-fk="beefmince" data-grp="maso"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Mleté hovädzie (orientačne 20 % tuku, surové)</span></label></td><td class="dose">130 g / deň</td><td class="qty sweek">910 g</td></tr>
           <tr class="grp" data-shopgrp="mliecne"><td colspan="3">Mliečne výrobky a vajcia</td></tr>
           <tr class="shop-row" data-fk="skyr" data-grp="mliecne"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Skyr (prírodný, 0,2 %)</span></label></td><td class="dose">450 g / deň</td><td class="qty sweek">3,15 kg</td></tr>
           <tr class="shop-row" data-fk="kefir" data-grp="mliecne"><td><label class="shopname"><input type="checkbox" class="chk"><span class="sname">Kefír (2 %)</span></label></td><td class="dose">200 g / deň</td><td class="qty sweek">1,40 kg</td></tr>
@@ -412,7 +414,7 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
     </details>
     <details>
       <summary>Nutričné hodnoty potravín (na 100 g) – editovateľné</summary>
-      <p class="sub">Zmeň číslo a všetko sa okamžite prepočíta. Zmena platí pre túto reláciu; pre trvalú prepíš atribúty <code>data-kcal</code>, <code>data-p</code>, <code>data-c</code>, <code>data-f</code>, <code>data-fib</code> v HTML.</p>
+      <p class="sub">Zmeň číslo a všetko sa okamžite prepočíta. Zmeny sa automaticky ukladajú v tomto prehliadači. Hodnoty odpisuj z etikety konkrétneho výrobku a používaj rovnaký stav potraviny (surová/hotová).</p>
       <div class="dbwrap">
         <table class="db">
           <thead><tr><th>Potravina</th><th>kcal</th><th>P</th><th>C</th><th>F</th><th>Vláknina</th></tr></thead>
@@ -435,13 +437,13 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
             <td><input type="number" step="0.5" min="0" value="0.7" data-fk="eggs" data-fd="c"></td>
             <td><input type="number" step="0.5" min="0" value="9.5" data-fk="eggs" data-fd="f"></td>
             <td><input type="number" step="0.5" min="0" value="0.0" data-fk="eggs" data-fd="fib"></td></tr>
-          <tr><th>Kuracie prsia</th>
+          <tr><th>Kuracie prsia (po tepelnej úprave)</th>
             <td><input type="number" step="1" min="0" value="165" data-fk="chicken" data-fd="kcal"></td>
             <td><input type="number" step="0.5" min="0" value="31.0" data-fk="chicken" data-fd="p"></td>
             <td><input type="number" step="0.5" min="0" value="0.0" data-fk="chicken" data-fd="c"></td>
             <td><input type="number" step="0.5" min="0" value="3.6" data-fk="chicken" data-fd="f"></td>
             <td><input type="number" step="0.5" min="0" value="0.0" data-fk="chicken" data-fd="fib"></td></tr>
-          <tr><th>Mleté hovädzie (Lidl, ~15 % tuku)</th>
+          <tr><th>Mleté hovädzie (orientačne 20 % tuku, surové)</th>
             <td><input type="number" step="1" min="0" value="250" data-fk="beefmince" data-fd="kcal"></td>
             <td><input type="number" step="0.5" min="0" value="18.0" data-fk="beefmince" data-fd="p"></td>
             <td><input type="number" step="0.5" min="0" value="0.0" data-fk="beefmince" data-fd="c"></td>
@@ -536,6 +538,43 @@ var DAY=["break","lunch","snack","dinner"];
 var STD=window.__STD;
 var DEF={kcal:STD.kcal,p:STD.protein,c:STD.carbs,f:STD.fat,fib:35};
 var M=["kcal","p","c","f","fib"];
+var STORAGE_KEY="jedalnicek.settings.v1", ready=false;
+var dbInputs=$$(".db input");
+var originalNutrition=dbInputs.map(function(inp){return +inp.value;});
+function setNutrient(inp,v){
+  inp.value=v;
+  foods.forEach(function(el){if(el.dataset.fk===inp.dataset.fk) el.dataset[inp.dataset.fd]=v;});
+}
+function saveSettings(){
+  if(!ready) return;
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(snapshot()));}
+  catch(e){$("#storageStatus").textContent="Ukladanie nie je dostupné. Zmeny platia iba do zatvorenia stránky; použi Export JSON.";}
+}
+function restoreSettings(){
+  try{
+    var raw=localStorage.getItem(STORAGE_KEY); if(!raw) return;
+    var state=JSON.parse(raw); if(!state || state.version!==1) return;
+    if(state.targets) ["kcal","p","c","f","fib"].forEach(function(k,i){
+      var el=$(["#tKcal","#tP","#tC","#tF","#tFib"][i]),v=state.targets[k];
+      if(typeof v==="number"&&isFinite(v)&&v>=+el.min&&v<=+el.max) el.value=v;
+    });
+    if(Number.isInteger(state.days)&&state.days>=1&&state.days<=14) $("#days").value=state.days;
+    if(typeof state.autoMacro==="boolean") $("#autoMacro").checked=state.autoMacro;
+    if(Array.isArray(state.items)) state.items.forEach(function(item){
+      if(!item || !Number.isInteger(item.i)) return;
+      var el=foods[item.i];
+      if(el&&item.fk===el.dataset.fk&&typeof item.grams==="number"&&isFinite(item.grams)&&item.grams>=0&&item.grams<=+$(".rg",el).max) setGrams(el,item.grams);
+    });
+    if(state.nutrition) dbInputs.forEach(function(inp){
+      var row=state.nutrition[inp.dataset.fk],v=row&&row[inp.dataset.fd];
+      if(typeof v==="number"&&isFinite(v)&&v>=0&&v<=1000) setNutrient(inp,v);
+    });
+    if(Array.isArray(state.bought)) $$(".shop-row").forEach(function(tr){
+      var checked=state.bought.indexOf(tr.dataset.fk)!==-1;
+      $(".chk",tr).checked=checked;tr.classList.toggle("done",checked);
+    });
+  }catch(e){$("#storageStatus").textContent="Uložené nastavenie sa nepodarilo načítať. Používa sa základný plán; dostupnosť úložiska overí ďalšia zmena.";}
+}
 
 function z(){return {kcal:0,p:0,c:0,f:0,fib:0};}
 function add(a,b){a.kcal+=b.kcal;a.p+=b.p;a.c+=b.c;a.f+=b.f;a.fib+=b.fib;return a;}
@@ -585,6 +624,7 @@ function summary(){
   });
   var wd=$('[data-wk="days"]'); if(wd) wd.textContent=n;
   var wc=$(".wkcol"); if(wc) wc.textContent="NA "+n+" DNÍ";
+  saveSettings();
   return t;
 }
 
@@ -602,7 +642,7 @@ function shopping(){
   });
 }
 function shopText(){
-  var out=["NÁKUPNÝ ZOZNAM ("+days()+" dní) – jedálniček A/B"], cur="";
+  var out=["NÁKUPNÝ ZOZNAM ("+days()+" dní) – jedálniček"], cur="";
   $$(".shop-row").forEach(function(tr){
     var grp=$("[data-shopgrp='"+tr.dataset.grp+"']");
     if(grp && grp.textContent!==cur){cur=grp.textContent;out.push("");out.push("— "+cur+" —");}
@@ -680,6 +720,7 @@ function stdNote(){
 
 /* ---------- reset / export / share ---------- */
 function reset(){
+  dbInputs.forEach(function(inp,i){setNutrient(inp,originalNutrition[i]);});
   foods.forEach(function(el){setGrams(el,+el.dataset.base||0);});
   $("#tKcal").value=DEF.kcal;$("#tP").value=DEF.p;$("#tC").value=DEF.c;$("#tF").value=DEF.f;$("#tFib").value=DEF.fib;
   $("#days").value=7; $("#autoMacro").checked=true;
@@ -690,8 +731,11 @@ function reset(){
 }
 function snapshot(){
   var T=readTargets(), items=[];
-  foods.forEach(function(el,i){items.push({i:i,name:el.dataset.name,grams:Math.round(grams(el))});});
-  return {targets:T,days:days(),items:items};
+  foods.forEach(function(el,i){items.push({i:i,fk:el.dataset.fk,name:el.dataset.name,grams:Math.round(grams(el))});});
+  var nutrition={};
+  dbInputs.forEach(function(inp){var fk=inp.dataset.fk; if(!nutrition[fk])nutrition[fk]={}; nutrition[fk][inp.dataset.fd]=+inp.value;});
+  return {version:1,targets:T,days:days(),autoMacro:$("#autoMacro").checked,items:items,nutrition:nutrition,
+    bought:$$(".shop-row").filter(function(tr){return $(".chk",tr).checked;}).map(function(tr){return tr.dataset.fk;})};
 }
 function copySetup(){
   var txt=JSON.stringify(snapshot(),null,1);
@@ -771,9 +815,15 @@ window.__jedalnicek={recalc:recalc,summary:summary,adapt:adapt,reset:reset,snaps
   shopText:shopText,dayTotals:dayTotals,mealTotals:mealTotals,meals:MEALS,foods:foods,
   setGrams:function(mk,i,g){setGrams(MEALS[mk][i],g);recalc();}};
 
+restoreSettings();
 applyHash();
 recalc();
 stdNote();
+ready=true;
+window.addEventListener("hashchange",function(){applyHash();recalc();stdNote();});
+document.addEventListener("input",saveSettings);
+document.addEventListener("change",saveSettings);
+document.addEventListener("click",function(e){if(e.target.closest("button"))saveSettings();});
 })();
 </script>
 </body>
