@@ -121,7 +121,7 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
   <header class="hero">
     <h1>Jedálniček – jeden deň, 4 jedlá, každý deň rovnaké</h1>
     <p>Muž 36 r., 188 cm, ~110 kg → cieľ ~85 kg, atletická postava. 4 jedlá denne, tie isté 7 dní v týždni, varenie 2× týždenne.</p>
-    <div class="chips"><span class="chip">denný cieľ 2300 kcal</span><span class="chip">196 g P</span><span class="chip">206 g C</span><span class="chip">77 g F</span><span class="chip">35 g vlákniny</span><span class="chip">offline · jeden súbor</span></div>
+    <div class="chips"><span class="chip">denný cieľ <span data-target="kcal">2300</span> kcal</span><span class="chip"><span data-target="p">196</span> g P</span><span class="chip"><span data-target="c">206</span> g C</span><span class="chip"><span data-target="f">77</span> g F</span><span class="chip"><span data-target="fib">35</span> g vlákniny</span><span class="chip">offline · jeden súbor</span></div>
   </header>
 
   <section class="card">
@@ -612,6 +612,7 @@ function recalc(){
 function summary(){
   var t=dayTotals(), T=readTargets(), n=days();
   M.forEach(function(k){
+    $$('[data-target="'+k+'"]').forEach(function(o){o.textContent=fmt(T[k]);});
     $$('[data-out="'+k+'"]').forEach(function(o){o.textContent=fmt(t[k]);});
     var bar=$('[data-bar="'+k+'"]');
     if(bar){var lim=T[k]>0?T[k]:1;bar.style.width=Math.min(100,(t[k]/lim)*100)+"%";}
