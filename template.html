@@ -139,8 +139,7 @@ textarea{width:100%;min-height:90px;font:12px/1.4 ui-monospace,Menlo,monospace;b
     <label class="switch"><input type="checkbox" id="autoMacro" checked> Pri zmene kalórií prepočítať makrá automaticky podľa noriem</label>
     <div class="rule" id="stdNote"></div>
     <div class="btns">
-      <button id="btnAdapt">PRISPÔSOBIŤ PORCIE JEDÁL</button>
-      <button id="btnStd" class="ghost">Prepočítať makrá podľa noriem</button>
+      <p class="sub">Po dokončení zmeny kalorického alebo makro cieľa sa porcie automaticky prispôsobia. Ručná zmena gramáže upraví iba súčty a nákupný zoznam. Bielkovinové potraviny a zelenina zostávajú stabilné; prípadný rozdiel oproti cieľu je uvedený nižšie.</p>
       <button id="btnReset" class="ghost">Resetovať na základný plán</button>
     </div>
     <p class="sub">Váženie: mäso, zemiaky a zeleninu pred tepelnou úpravou; vločky suché; mleté hovädzie surové (orientačné hodnoty, over podľa etikety); zemiaky a zelenina pred varením; vajcia bez škrupiny. Ostatné potraviny váž v stave, v akom ich konzumuješ. Hotové jedlo rozdeľ na počet pripravených porcií; strata vody nemení pôvodne odvážené množstvo surovín.</p>
@@ -707,8 +706,9 @@ function adapt(){
     +" g F, "+fmt(t.fib)+" g vlákniny. Cieľ je "+fmt(T.kcal)+" kcal, "+fmt(T.p)+" g P, "+fmt(T.c)+" g C, "+fmt(T.f)
     +" g F. Menené boli sacharidové prílohy a tuky, bielkoviny a zelenina zostali rovnaké.";
   var dc2=t.c-T.c, df2=t.f-T.f, dk=t.kcal-T.kcal;
-  var off = Math.abs(dc2)>8 || Math.abs(df2)>8 || Math.abs(dk)>60;
-  if(off) txt+=" Ostávajúci rozdiel: "+fmt(dk)+" kcal, "+fmt(dc2)+" g C, "+fmt(df2)+" g F (porcie dosiahli limity).";
+  var dp2=t.p-T.p, dfib2=t.fib-T.fib;
+  var off = Math.abs(dc2)>8 || Math.abs(df2)>8 || Math.abs(dk)>60 || Math.abs(dp2)>8 || dfib2 < -5;
+  if(off) txt+=" Ostávajúci rozdiel: "+fmt(dk)+" kcal, "+fmt(dp2)+" g P, "+fmt(dc2)+" g C, "+fmt(df2)+" g F a "+fmt(dfib2)+" g vlákniny. Bielkoviny a vlákninu prípadne dolaď ručnou zmenou potravín.";
   msg(txt, off?"warn":"ok");
 }
 
@@ -800,12 +800,24 @@ function bindFood(el){
   gn.addEventListener("change",function(){var v=parseFloat(gn.value);if(!isFinite(v)||v<0)v=0;setGrams(el,v);recalc();});
 }
 foods.forEach(bindFood);
-$("#tKcal").addEventListener("input",function(){ if($("#autoMacro").checked) applyStandard(); stdNote(); summary(); });
-["#tP","#tC","#tF","#tFib"].forEach(function(s){$(s).addEventListener("input",summary);});
-$("#autoMacro").addEventListener("change",function(){ if(this.checked){applyStandard();stdNote();} });
+function commitTargets(){
+  var inputs=["#tKcal","#tP","#tC","#tF","#tFib"].map(function(s){return $(s);});
+  if(inputs.some(function(el){return el.value===""||!isFinite(+el.value)||+el.value<+el.min||+el.value>+el.max;})){
+    msg("Zadaj platné ciele v povolenom rozsahu; porcie zostali nezmenené.","warn");return;
+  }
+  stdNote();adapt();
+}
+$("#tKcal").addEventListener("input",function(){
+  if(this.value!==""&&isFinite(+this.value)&&+this.value>=+this.min&&+this.value<=+this.max&&$("#autoMacro").checked) applyStandard();
+  stdNote();summary();
+});
+$("#tKcal").addEventListener("change",commitTargets);
+["#tP","#tC","#tF","#tFib"].forEach(function(s){
+  $(s).addEventListener("input",summary);
+  $(s).addEventListener("change",commitTargets);
+});
+$("#autoMacro").addEventListener("change",function(){ if(this.checked){applyStandard();commitTargets();} });
 $("#days").addEventListener("input",recalc);
-$("#btnAdapt").addEventListener("click",adapt);
-$("#btnStd").addEventListener("click",function(){applyStandard();stdNote();msg("Makrá prepočítané podľa noriem (2,3 g bielkovín a 0,9 g tuku na kg cieľovej hmotnosti).","ok");});
 $("#btnReset").addEventListener("click",reset);
 $("#btnCopy").addEventListener("click",copySetup);
 $("#btnExport").addEventListener("click",exportJson);
