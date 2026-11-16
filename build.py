@@ -29,8 +29,13 @@ def build():
         for k in KEYS:
             meals[current][k] += values[k]
         shopping[data['fk']] += grams
-        lines[i+1] = re.sub(r'(<span class="fval">).*?(</span>)', lambda m: m[1]+rounded(grams)+' g'+m[2], lines[i+1])
-        lines[i+3] = '        <div class="fm">'+rounded(values['kcal'])+' kcal · '+ ' · '.join(f'{values[k]:.1f} g {label}' for k,label in [('p','P'),('c','C'),('f','F')])+'</div>'
+        window = range(i + 1, min(i + 7, len(lines)))
+        fval_i = next((j for j in window if 'class="fval"' in lines[j]), None)
+        fm_i = next((j for j in window if 'class="fm"' in lines[j]), None)
+        if fval_i is None or fm_i is None:
+            raise SystemExit(f'food blok "{data["fk"]}": chyba riadok s fval alebo fm')
+        lines[fval_i] = re.sub(r'(<span class="fval">).*?(</span>)', lambda m: m[1]+rounded(grams)+' g'+m[2], lines[fval_i])
+        lines[fm_i] = '        <div class="fm">'+rounded(values['kcal'])+' kcal · '+ ' · '.join(f'{values[k]:.1f} g {label}' for k,label in [('p','P'),('c','C'),('f','F')])+'</div>'
     content = '\n'.join(lines)+'\n'
     totals = {k: sum(m[k] for m in meals.values()) for k in KEYS}
     for meal, values in meals.items():
